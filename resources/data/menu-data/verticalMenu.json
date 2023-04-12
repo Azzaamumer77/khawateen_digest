@@ -1,0 +1,46 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboard",
+      "icon": "home",
+      "slug": "dashboard.index"
+    },
+    {
+      "name": "Books",
+      "icon": "book",
+      "slug": "",
+      "submenu": [{
+              "url": "books",
+              "name": "List",
+              "icon": "circle",
+              "slug": "books.index"
+          },
+          {
+              "url": "books/create",
+              "name": "Add Book",
+              "icon": "circle",
+              "slug": "books.create"
+          }
+      ]
+    },
+    {
+      "name": "Bills",
+      "icon": "bookmark",
+      "slug": "",
+      "submenu": [{
+              "url": "bills",
+              "name": "List",
+              "icon": "circle",
+              "slug": "bills.index"
+          },
+          {
+              "url": "bills/create",
+              "name": "Generate Bill",
+              "icon": "circle",
+              "slug": "bills.create"
+          }
+      ]
+    }
+  ]
+}
