@@ -17,7 +17,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "View Books"]];
+        $books = Book::get();
+        return view('books.list', compact('books', 'breadcrumbs'));
+
     }
 
     /**
@@ -27,7 +30,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Add Books"]];
+        return view('books.create',compact('breadcrumbs'));
     }
 
     /**
@@ -38,7 +42,6 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $request->validate(
             [
                 'urdu_name' => 'required|max:255',
@@ -46,43 +49,38 @@ class BookController extends Controller
                 'author' => 'required|max:255',
                 'publications_name' => 'required|max:255',
                 'price' => 'required',
-                // 'discounted_price' => 'required',
                 'quantity' => 'required',
                 'file' => 'image|mimes:jpeg,png,jpg|required|max:20480',
             ]
         );
-        // try{
-
+        try {
             if ($request->hasfile('file')) {
                 $image_name  = time() . '.' . Str::random(7) . '.' . $request->file('file')->getClientOriginalExtension();
             }
-
             $book = Book::create([
-                'urdu_name' => $request->input('urdu_name'),
-                'english_name' => $request->input('english_name'),
-                'author' => $request->input('author'),
-                'publications_name' => $request->input('publications_name'),
-                'price' => $request->input('price'),
-                'discounted_price' => $request->input('discounted_price'),
-                'quantity' => $request->input('quantity'),
+                'urdu_name' => $request->urdu_name,
+                'english_name' => $request->english_name,
+                'author' => $request->author,
+                'publications_name' => $request->publications_name,
+                'price' => $request->price,
+                'discounted_price' => $request->discounted_price,
+                'quantity' => $request->quantity,
                 'image' => $image_name,
             ]);
 
             if ($book->save()) {
                 Storage::putFileAs('public/books/', $request->file('file'), $image_name);
-                return redirect()->route('books.create')
+                return redirect()->route('books.index')
                     ->with('success', 'Book added successfully');
             } else {
                 return redirect()->back()
                     ->with('error', 'Error while adding book');
             }
-        // }
-        // catch(\Exception $e)
-        // {
-        //     Log::error($e->getMessage());
-        //     return redirect()->back()
-        //             ->with('error', 'Error while creating book');
-        // }
+        } catch(\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()
+                    ->with('error', 'Error while creating book');
+        }
     }
 
     /**
@@ -105,7 +103,9 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['link' => "/books", 'name' => "All Books"], ['name' => "Edit Books"]];
+        $book = Book::whereId($id)->first();
+        return view('books.create', compact('book', 'breadcrumbs'));
     }
 
     /**
@@ -117,7 +117,45 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'urdu_name' => 'required|max:255',
+            'english_name' => 'required|max:255',
+            'author' => 'required|max:255',
+            'publications_name' => 'required|max:255',
+            'price' => 'required',
+            'quantity' => 'required',
+            'file' => 'image|mimes:jpeg,png,jpg|required|max:20480',
+        ]);
+
+        $book = Book::whereId($id)->first();
+        if ($request->hasfile('file')) {
+            $image_name  = time() . '.' . Str::random(7) . '.' . $request->file('file')->getClientOriginalExtension();
+        }
+        $book->update([
+            'urdu_name' => $request->urdu_name,
+            'english_name' => $request->english_name,
+            'author' => $request->author,
+            'publications_name' => $request->publications_name,
+            'price' => $request->price,
+            'discounted_price' => $request->discounted_price,
+            'quantity' => $request->quantity,
+            'image' => $image_name,
+        ]);
+        try {
+
+            if ($book->save()) {
+                Storage::putFileAs('public/books/', $request->file('file'), $image_name);
+                return redirect()->route('books.index')
+                    ->with('success', 'Book Updated successfully');
+            } else {
+                return redirect()->back()
+                    ->with('error', 'Error while adding book');
+            }
+        } catch(\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()
+                    ->with('error', 'Error while updating book');
+        }
     }
 
     /**
@@ -128,6 +166,8 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Book::whereId($id)->delete();
+        return redirect()->route('books.index')
+                    ->with('success', 'Book deleted successfully');
     }
 }
