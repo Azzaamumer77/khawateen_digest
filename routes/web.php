@@ -4,6 +4,7 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +30,16 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Books Routes
     Route::resource('books', BookController::class);
+    Route::resource('/generateBills', BillController::class);
+    Route::get('book/records' , [BookController::class, 'records'])->name('book.records');
+
 
     //Bills Routes
     Route::resource('bills', BillController::class);
+
+    //Publication Controller
+    Route::resource('publications', PublicationController::class);
+    Route::get('/publications/records' , [PublicationController::class , 'random'])->name('publications.records');
+
+
 });
