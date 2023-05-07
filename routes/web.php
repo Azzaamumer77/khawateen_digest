@@ -3,6 +3,7 @@
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicationController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('books', BookController::class);
     Route::resource('/generateBills', BillController::class);
     Route::get('book/records' , [BookController::class, 'records'])->name('book.records');
+
+    Route::get('/print/{name}',    [PdfController::class, 'print'])->name('publication.print');
 
 
     //Bills Routes

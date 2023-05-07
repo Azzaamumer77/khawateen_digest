@@ -35,7 +35,7 @@
                                 <td>{{ $publication->debit_total }}</td>
                                 <td>{{ $publication->credit_total }}</td>
                                 <td>
-                                    <a class="btn btn-primary" href="">
+                                    <a class="btn btn-primary" id={{$publication->name}} href="{{route('publication.print', ['name' => $publication->name])}}">
                                         Download
                                         <i class="fas fa-plus-circle"></i>
                                     </a>
