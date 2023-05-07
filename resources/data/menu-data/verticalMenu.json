@@ -41,6 +41,24 @@
               "slug": "bills.create"
           }
       ]
+    },
+    {
+      "name": "Publications",
+      "icon": "book",
+      "slug": "",
+      "submenu": [{
+        "url": "publications/create",
+        "name": "Add",
+        "icon": "circle",
+        "slug": "publications.create"
+    },
+          {
+              "url": "publications",
+              "name": "View",
+              "icon": "circle",
+              "slug": "publications.index"
+          }
+      ]
     }
   ]
 }

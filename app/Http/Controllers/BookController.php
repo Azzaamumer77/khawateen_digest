@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -170,4 +171,12 @@ class BookController extends Controller
         return redirect()->route('books.index')
                     ->with('success', 'Book deleted successfully');
     }
+
+    public function records()
+    {
+        $publications = Publication::sum()->get();
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Total Bills"]];
+        return view('publications.total_record' ,compact('publications' , 'breadcrumbs'));
+    }
+    
 }
