@@ -57,7 +57,7 @@
                                 <td>{{ $record->invoice_no }}</td>
                                 <td>{{ $record->debit }}</td>
                                 <td>{{ $record->credit }}</td>
-                                <td>{{ $record->date }}</td>
+                                <td>{{ date(Config::get('date.date_format'), strtotime($record->date))}}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
