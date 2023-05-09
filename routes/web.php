@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/generateBills', BillController::class);
     Route::get('book/records' , [BookController::class, 'records'])->name('book.records');
 
-    Route::get('/print/{name}',    [PdfController::class, 'print'])->name('publication.print');
+    Route::get('/print/{id}',    [PdfController::class, 'print'])->name('publication.print');
 
 
     //Bills Routes

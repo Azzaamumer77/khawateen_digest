@@ -17,14 +17,6 @@ class PublicationInvoice extends Model
         'credit',
         'date'
    ];
-   public function scopeSum($query)
-   {
-       return $query->select('publication_id', 
-               DB::raw('SUM(debit) as debit_total'),
-               DB::raw('SUM(credit) as credit_total')
-           )
-           ->groupBy('publication_id');
-   }
    public function publication()
     {
         return $this->belongsTo(Publication::class);
