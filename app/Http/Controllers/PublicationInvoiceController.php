@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bill;
-use App\Models\Book;
+use App\Models\Publication;
+use App\Models\PublicationInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class BillController extends Controller
+class PublicationInvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class BillController extends Controller
     public function index()
     {
         $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "View Records"]];
-        $bills = Bill::get();
-        return view('bills.index', compact('breadcrumbs', 'bills'));
+        $publication_record = PublicationInvoice::get();
+        return view('publication_invoices.index', compact('breadcrumbs', 'publication_record'));
     }
 
     /**
@@ -29,8 +29,8 @@ class BillController extends Controller
     public function create()
     {
         $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Add Record"]];
-        $books = Book::get();
-        return view('bills.create', compact('breadcrumbs','books'));
+        $publications = Publication::get();
+        return view('publication_invoices.create', compact('breadcrumbs','publications'));
     }
 
     /**
@@ -50,7 +50,7 @@ class BillController extends Controller
         ]);
 
         try {
-            Bill::create([
+            PublicationInvoice::create([
                 'publication_id'=>$request->publication,
                 'invoice_no' => $request->invoice_no,
                 'debit' => $request->debit,
@@ -74,7 +74,9 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        //
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Update Records"]];
+        $record = PublicationInvoice::whereId($id)->first();
+        return view('publication_invoices.create', compact('breadcrumbs', 'record'));
     }
 
     /**
@@ -85,7 +87,10 @@ class BillController extends Controller
      */
     public function edit($id)
     {
-        //
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Update Records"]];
+        $publications = Publication::get();
+        $record = PublicationInvoice::whereId($id)->first();
+        return view('publication_invoices.create', compact('breadcrumbs', 'record','publications'));  
     }
 
     /**
@@ -97,7 +102,31 @@ class BillController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'publication' => 'required',
+            'invoice_no' => 'required',
+            'debit'=>'sometimes',
+            'credit' => 'sometimes',
+            'date' => 'required',
+        ]);
+
+        try {
+            $record = PublicationInvoice::whereId($id)->first();
+            $record->update([
+                'publication_id'=>$request->publication,
+                'invoice_no' => $request->invoice_no,
+                'debit' => $request->debit,
+                'credit' => $request->credit,
+                'date' => $request->date
+            ]);
+
+            return redirect()->route('publication_invoices.index')
+            ->with('success', 'Record updated successfully');
+        } catch(\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()
+                    ->with('error', 'Error while updating record');
+        }
     }
 
     /**
@@ -108,7 +137,7 @@ class BillController extends Controller
      */
     public function destroy($id)
     {
-        Bill::whereId($id)->delete();
+        PublicationInvoice::whereId($id)->delete();
         return redirect()->route('publication_invoices.index')
                     ->with('success', 'Record deleted successfully');
     }

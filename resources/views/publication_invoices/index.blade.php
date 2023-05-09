@@ -19,9 +19,15 @@
         <div class="card-body">
             <div class="row mb-2">
                 <div class="col-md-12">
+                    <div class="text-left">
+                        <a class="btn btn-primary" href="{{ route('book.records') }}">
+                            Generate Publication Record
+                            <i class="fas fa-plus-circle"></i>
+                        </a>
+                    </div>
                     <div class="text-right">
-                        <a class="btn btn-primary" href="{{ route('books.create') }}">
-                            Add New Book
+                        <a class="btn btn-primary" href="{{ route('publication_invoices.create') }}">
+                            Add New Record
                             <i class="fas fa-plus-circle"></i>
                         </a>
                     </div>
@@ -30,35 +36,28 @@
 
             </div>
             <hr>
-            <table class="table table-striped table-hover table-responsive-lg" id="booksTable">
-                @if ($books->count())
+            <table class="table table-striped table-hover table-responsive-lg" id="publicationsTable">
+                @if ($publication_record->count())
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Urdu Name</th>
-                            <th>English Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Discounted Price</th>
-                            <th>Author</th>
-                            <th>Publications Name</th>
-                            <th>Image</th>
+                            <th>Publication Name</th>
+                            <th>Invoice Number</th>
+                            <th>Debit</th>
+                            <th>Credit</th>
+                            <th>Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($books as $book)
+                        @foreach ($publication_record as $record)
                             <tr>
                                 <td scope="row">{{ $loop->iteration }}</td>
-                                <td>{{ $book->english_name }}</td>
-                                <td>{{ $book->urdu_name }}</td>
-                                <td>{{ $book->quantity }}</td>
-                                <td>{{ $book->price }}</td>
-                                <td>{{ $book->discounted_price }}</td>
-                                <td>{{ $book->author }}</td>
-                                <td>{{ $book->publication->name }}</td>
-                                <td><img src="{{ asset('storage/books/' . $book->image) }}" alt="Book image"
-                                        style="max-width: 100px; max-height: 100px;"></td>
+                                <td>{{ $record->publication->name }}</td>
+                                <td>{{ $record->invoice_no }}</td>
+                                <td>{{ $record->debit }}</td>
+                                <td>{{ $record->credit }}</td>
+                                <td>{{ date(Config::get('date.date_format'), strtotime($record->date))}}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
@@ -66,12 +65,12 @@
                                             <i data-feather="more-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('books.edit', $book->id) }}">
+                                            <a class="dropdown-item" href="{{ route('publications.edit', $record->id) }}">
                                                 <i data-feather="edit-2" class="mr-50"></i>
                                                 <span>Edit</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:void(0);" id="deleteBook"
-                                                data-id="{{ $book->id }}">
+                                            <a class="dropdown-item" href="javascript:void(0);" id="deleteRecord"
+                                                data-id="{{ $record->id }}">
                                                 <i data-feather="trash" class="mr-50"></i>
                                                 <span>Delete</span>
                                             </a>
@@ -82,7 +81,7 @@
                         @endforeach
                     </tbody>
                 @else
-                    <div class="font-weight-bold text-danger h3 text-center mt-5"><i class="fa fa-info-circle"></i>No Books
+                    <div class="font-weight-bold text-danger h3 text-center mt-5"><i class="fa fa-info-circle"></i>No Records
                         Found.
                     </div>
                 @endif
@@ -105,7 +104,7 @@
 @section('page-script')
     <script>
         $(document).ready(function() {
-            $("body").on("click", "#deleteBook", function(e) {
+            $("body").on("click", "#deleteRecord", function(e) {
                 var id = $(this).data("id");
                 Swal.fire({
                     title: 'Are you sure?',
@@ -128,13 +127,15 @@
                             },
                         });
                         $.ajax({
-                            url: '/books/' + id,
+                            url: '/publications/' + id,
                             type: "DELETE",
                             success: function(response) {
+                                alert(1);
                                 location.reload();
 
                             },
                             error: function(xhr) {
+                                alert(2);
                                 location.reload();
                             }
                         });
@@ -142,7 +143,7 @@
                 });
             });
         });
-        $('#booksTable').DataTable({
+        $('#publicationsTable').DataTable({
             "drawCallback": function(settings) {
                 feather.replace({
                     width: 14,

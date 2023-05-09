@@ -31,8 +31,9 @@ class BookController extends Controller
      */
     public function create()
     {
+        $publications = Publication::get();
         $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Add Books"]];
-        return view('books.create',compact('breadcrumbs'));
+        return view('books.create',compact('breadcrumbs','publications'));
     }
 
     /**
@@ -48,7 +49,7 @@ class BookController extends Controller
                 'urdu_name' => 'required|max:255',
                 'english_name' => 'required|max:255',
                 'author' => 'required|max:255',
-                'publications_name' => 'required|max:255',
+                'publication' => 'required|max:255',
                 'price' => 'required',
                 'quantity' => 'required',
                 'file' => 'image|mimes:jpeg,png,jpg|required|max:20480',
@@ -62,7 +63,7 @@ class BookController extends Controller
                 'urdu_name' => $request->urdu_name,
                 'english_name' => $request->english_name,
                 'author' => $request->author,
-                'publications_name' => $request->publications_name,
+                'publication_id' => $request->publication,
                 'price' => $request->price,
                 'discounted_price' => $request->discounted_price,
                 'quantity' => $request->quantity,
@@ -122,7 +123,7 @@ class BookController extends Controller
             'urdu_name' => 'required|max:255',
             'english_name' => 'required|max:255',
             'author' => 'required|max:255',
-            'publications_name' => 'required|max:255',
+            'publication' => 'required|max:255',
             'price' => 'required',
             'quantity' => 'required',
             'file' => 'image|mimes:jpeg,png,jpg|required|max:20480',
@@ -136,7 +137,7 @@ class BookController extends Controller
             'urdu_name' => $request->urdu_name,
             'english_name' => $request->english_name,
             'author' => $request->author,
-            'publications_name' => $request->publications_name,
+            'publication_id' => $request->publication,
             'price' => $request->price,
             'discounted_price' => $request->discounted_price,
             'quantity' => $request->quantity,

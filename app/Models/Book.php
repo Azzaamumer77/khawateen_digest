@@ -15,7 +15,7 @@ class Book extends Model
     'quantity',
     'price',
     'discounted_price',
-    'publications_name',
+    'publication_id',
     'author',
     'image',
    ];
@@ -23,5 +23,9 @@ class Book extends Model
    public function bills()
     {
         return $this->belongsToMany(Bill::class)->withPivot('quantity');
+    }
+    public function publication()
+    {
+        return $this->belongsTo(Publication::class);
     }
 }

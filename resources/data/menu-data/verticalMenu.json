@@ -57,7 +57,19 @@
               "name": "View",
               "icon": "circle",
               "slug": "publications.index"
-          }
+          },
+          {
+            "url": "publication_invoices",
+            "name": "Invoices",
+            "icon": "circle",
+            "slug": "publication_invoices.index"
+        },
+        {
+          "url": "publication_invoices/create",
+          "name": "Add Invoice",
+          "icon": "circle",
+          "slug": "publication_invoices.create"
+      }
       ]
     }
   ]

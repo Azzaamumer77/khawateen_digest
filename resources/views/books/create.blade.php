@@ -65,11 +65,21 @@
                             <div class="col-md-6 col-12">
                                 <div class="form-group mb-2">
                                     <label for="publications_name">Publications Name</label>
-                                    <input type="text" name="publications_name" id="publications_name"
-                                        class="form-control"
-                                        @if (isset($book)) value="{{ old('publications_name', $book->publications_name) }}" @else
-                                    value="{{ old('publications_name') }}" @endif
-                                        required />
+                                    <select class="form-control hide-search" id="publication" name="publication" required>
+                                        <option value=""></option>
+                                        @foreach ($publications as $publication)
+                                        <option @if ((isset($record)) && $publication->id == old('publication',
+                                            $record->publication_id))
+                                            selected
+                                            @elseif (old('publication') == $publication->id)
+                                            selected
+                                            @endif
+                                            value="{{ $publication->id }}"
+                                            >
+                                            {{ $publication->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">

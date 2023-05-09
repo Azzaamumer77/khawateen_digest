@@ -26,19 +26,11 @@ class PublicationController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'invoice_no' => 'required',
-            'debit'=>'sometimes',
-            'credit' => 'sometimes',
-            'date' => 'required',
         ]);
 
         try {
             Publication::create([
                 'name' => $request->name,
-                'invoice_no' => $request->invoice_no,
-                'debit' => $request->debit,
-                'credit' => $request->credit,
-                'date' => $request->date
             ]);
             return redirect()->route('publications.index')
             ->with('success', 'Record added successfully');
@@ -61,20 +53,12 @@ class PublicationController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'invoice_no' => 'required',
-            'debit'=>'sometimes',
-            'credit' => 'sometimes',
-            'date' => 'required',
         ]);
 
         try {
             $record = Publication::whereId($id)->first();
             $record->update([
                 'name' => $request->name,
-                'invoice_no' => $request->invoice_no,
-                'debit' => $request->debit,
-                'credit' => $request->credit,
-                'date' => $request->date
             ]);
 
             return redirect()->route('publications.index')

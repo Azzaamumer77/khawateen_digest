@@ -6,6 +6,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\PublicationInvoiceController;
+use App\Models\PublicationInvoice;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Publication Controller
     Route::resource('publications', PublicationController::class);
+    Route::resource('publication_invoices', PublicationInvoiceController::class);
     Route::get('/publications/records' , [PublicationController::class , 'random'])->name('publications.records');
 
 

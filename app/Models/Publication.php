@@ -13,18 +13,14 @@ class Publication extends Model
     protected $fillable =
     [
         'name',
-        'invoice_no',
-        'debit',
-        'credit',
-        'date'
    ];
+   public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
+    public function publication_invoices()
+    {
+        return $this->hasMany(PublicationInvoice::class);
+    }
 
-   public function scopeSum($query)
-   {
-       return $query->select('name', 
-               DB::raw('SUM(debit) as debit_total'),
-               DB::raw('SUM(credit) as credit_total')
-           )
-           ->groupBy('name');
-   }
 }
