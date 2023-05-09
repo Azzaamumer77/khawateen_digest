@@ -19,12 +19,6 @@
         <div class="card-body">
             <div class="row mb-2">
                 <div class="col-md-12">
-                    <div class="text-left">
-                        <a class="btn btn-primary" href="{{ route('book.records') }}">
-                            Generate Publication Record
-                            <i class="fas fa-plus-circle"></i>
-                        </a>
-                    </div>
                     <div class="text-right">
                         <a class="btn btn-primary" href="{{ route('publications.create') }}">
                             Add New Record

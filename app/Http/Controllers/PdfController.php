@@ -7,11 +7,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PdfController extends Controller
 {
-    public function print($name)
+    public function print($id)
     {
-        $publications = Publication::where('name', $name)->get();
-        $totalDebit = $publications->sum('debit');
-        $totalCredit = $publications->sum('credit');
+        $publications = Publication::where('id', $id)->get();
+        $totalDebit = $publications->publication_invoices->sum('debit');
+        $totalCredit = $publications->publication_invoices->sum('credit');
         $pdf = PDF::loadView('invoice', compact('publications', 'totalDebit', 'totalCredit'));
         return $pdf->download('invoice.pdf');
     }
