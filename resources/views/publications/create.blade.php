@@ -44,43 +44,7 @@
                                         required />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group mb-2">
-                                    <label for="blog-edit-title">Invoice Number</label>
-                                    <input type="number" name="invoice_no" id="invoice_no" class="form-control"
-                                        @if (isset($record)) value="{{ old('invoice_no', $record->invoice_no) }}" @else
-                                    value="{{ old('invoice_no') }}" @endif
-                                        required />
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group mb-2">
-                                    <label for="debit">Debit</label>
-                                    <input type="number" name="debit" id="debit" class="form-control"
-                                        @if (isset($record)) value="{{ old('debit', $record->debit) }}" @else
-                                    value="{{ old('debit') }}" @endif
-                                         />
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group mb-2">
-                                    <label for="credit">Credit</label>
-                                    <input type="number" name="credit" id="credit"
-                                        class="form-control"
-                                        @if (isset($record)) value="{{ old('credit', $record->credit) }}" @else
-                                    value="{{ old('credit') }}" @endif
-                                         />
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group mb-2">
-                                    <label for="quantity">Date</label>
-                                    <input type="date" name="date" id="date" class="form-control"
-                                        @if (isset($record)) value="{{ old('date', $record->date) }}" @else
-                                    value="{{ old('date') }}" @endif
-                                        required />
-                                </div>
-                            </div>
+
                             <div class="col-md-12 mt-50 mb-2">
                                 <button type="submit" class="btn btn-primary mr-1">
                                     @if (isset($record))
