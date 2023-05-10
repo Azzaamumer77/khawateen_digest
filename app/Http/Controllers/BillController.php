@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bill;
 use App\Models\Book;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -41,24 +42,33 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
+        $total_amount = 0;
+        foreach($request->books as $book)
+        {
+            $book_id = Book::find($book['name']);
+            $total_amount = $total_amount + (($book_id->price) * $book['quantity']) ;
+        }
         $request->validate([
-            'publication' => 'required',
-            'invoice_no' => 'required',
-            'debit'=>'sometimes',
-            'credit' => 'sometimes',
-            'date' => 'required',
+            'name' => 'required',
+            'invoice_no' => 'required|unique:bills',
         ]);
 
         try {
-            Bill::create([
-                'publication_id'=>$request->publication,
+            $bill=Bill::create([
+                'customer_name'=>$request->name,
                 'invoice_no' => $request->invoice_no,
-                'debit' => $request->debit,
-                'credit' => $request->credit,
-                'date' => $request->date
+                'total_amount' => $total_amount
             ]);
-            return redirect()->route('publication_invoices.index')
-            ->with('success', 'Record added successfully');
+            $books = $request->input('books'); // Assuming books input is an array of book IDs
+
+        foreach ($books as $bookId) {
+            $book = Book::find($bookId['name']);        
+            if ($book) {
+                $bill->books()->attach($bookId['name'], ['quantity' => $bookId['quantity']]);
+            }
+        };
+        $pdf = PDF::loadView('bills.invoice', compact('bill'));
+         return $pdf->download('invoice.pdf');
         } catch(\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->back()
@@ -74,7 +84,8 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        //
+        $bill = Bill::find($id);
+        return view('bills.view', compact('bill'));
     }
 
     /**

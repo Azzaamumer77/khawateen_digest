@@ -24,8 +24,8 @@
                     <h2>Add record</h2>
                     <!-- Form -->
                     <form id="jquery-val-form" class="form form-horizontal mt-2" enctype="multipart/form-data" method="POST"
-                        @if (isset($record)) action="{{ route('publication_invoices.update', $record->id) }}" @else
-                    action="{{ route('publication_invoices.store') }}" @endif>
+                        @if (isset($record)) action="{{ route('bills.update', $record->id) }}" @else
+                    action="{{ route('bills.store') }}" @endif>
                         @csrf
                             <div class="row">
                                 <div class="col-md-6 col-12">
@@ -52,7 +52,7 @@
                                 <div class="book">
                                     <div class="row">
                                         <div class="col-4">
-                                            <select class="form-control hide-search"  name="books[0][name]" >
+                                            <select class="form-control hide-search"  name="books[0][name]" required >
                                                 <option value=""> Select Book</option>
                                                 @foreach ($books as $book)
                                                 <option @if ((isset($record)) && $book->id == old('books[0][name]',
@@ -69,7 +69,7 @@
                                             </select>
                                         </div>
                                         <div class="col-4">
-                                        <input type="number" name="books[0][quantity]" placeholder="Quantity" class="form-control">
+                                        <input type="number" name="books[0][quantity]" placeholder="Quantity" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
         bookDiv.innerHTML = `
         <div class="row mt-2">
             <div class="col-4">
-                <select class="form-control hide-search" name="books[${bookCount}][name]">
+                <select class="form-control hide-search" name="books[${bookCount}][name]" required>
                         <option value="">Select Book</option>
                         @foreach ($books as $book)
                         <option @if ((isset($record)) && $book->id == old('books[${bookCount}][name]', $record->book_id))
@@ -125,7 +125,7 @@
                 </select>
             </div>
             <div class="col-4">
-            <input type="number" class="form-control" name="books[${bookCount}][quantity]" placeholder="Quantity">
+            <input type="number" class="form-control" name="books[${bookCount}][quantity]" placeholder="Quantity" required>
             </div>
             <button type="button" class="btn btn-primary mr-1" onclick="removeBook(this)">Remove</button>  
         </div>

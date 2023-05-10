@@ -9,10 +9,8 @@ class PdfController extends Controller
 {
     public function print($id)
     {
-        $publications = Publication::where('id', $id)->get();
-        $totalDebit = $publications->publication_invoices->sum('debit');
-        $totalCredit = $publications->publication_invoices->sum('credit');
-        $pdf = PDF::loadView('invoice', compact('publications', 'totalDebit', 'totalCredit'));
+        $publication = Publication::find($id);
+        $pdf = PDF::loadView('invoice', compact('publication'));
         return $pdf->download('invoice.pdf');
     }
 }
