@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Bill extends Model
 {
     use HasFactory;
-    protected $filllable=
+    protected $fillable=
     [
      'customer_name',
-     'total_amount',
+     'invoice_no',
+     'total_amount'
+
     ];
 
     public function books()

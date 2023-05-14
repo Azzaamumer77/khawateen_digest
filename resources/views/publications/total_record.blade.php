@@ -35,7 +35,7 @@
                                 <td>{{ $publication->publication_invoices->sum('debit') }}</td>
                                 <td>{{ $publication->publication_invoices->sum('credit') }}</td>
                                 <td>
-                                    <a class="btn btn-primary" id={{$publication->id}} href="{{route('publication.print', ['name' => $publication->name])}}">
+                                    <a class="btn btn-primary" id={{$publication->id}} href="{{route('publication.print', ['id' => $publication->id])}}">
                                         Download
                                         <i class="fas fa-plus-circle"></i>
                                     </a>
