@@ -46,7 +46,9 @@ class BillController extends Controller
         foreach($request->books as $book)
         {
             $book_id = Book::find($book['name']);
+            $left_quantity = $book_id->quantity - $book['quantity'];
             $total_amount = $total_amount + (($book_id->price) * $book['quantity']) ;
+            $book_id->update(['quantity'=>$left_quantity]);
         }
         $request->validate([
             'name' => 'required',
