@@ -108,7 +108,8 @@ class BookController extends Controller
     {
         $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['link' => "/books", 'name' => "All Books"], ['name' => "Edit Books"]];
         $book = Book::whereId($id)->first();
-        return view('books.create', compact('book', 'breadcrumbs'));
+        $publications = Publication::get();
+        return view('books.create', compact('book','publications','breadcrumbs'));
     }
 
     /**

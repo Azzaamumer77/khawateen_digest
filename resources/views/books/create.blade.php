@@ -109,37 +109,33 @@
                                         required />
                                 </div>
                             </div>
-                            <div class="col-md-12 mb-2">
-                                <div class="form-group mb-2">
-                                    <div class="border rounded p-2">
-                                        <h5 class="mb-0">Image:</h5>
-                                        <small class="text-muted">Required image resolution 800x400,max image size
-                                        10mb.</small>
-                                        <div class="image">
-                                            <div class=" col-md-6 input">
-                                                <label>
-                                                    <h4>Add image</h4>
-                                                </label>
-                                                <input type="file" name="file" class="form-control"
+                            <div class="col-lg-12 mb-2">
+                                <label for="discounted_price">Add Image</label>
+                                <div class="col-md-6 form-group">
+                                        <input type="file" name="file" class="custom-file-input form-control"
                                                     @if (isset($book)) data-id="{{ $book->image }}" @endif
                                                     name="file" accept=".png, .jpg, .jpeg">
-                                            </div>
-                                            @if (isset($book) && $book->image)
-                                                <div class="row mt-1">
-                                                    <div class="col-sm-3">
-                                                        <div class="card">
-                                                            <img src="{{ asset('storage/books/' . $book->image) }}"
-                                                                alt="post Image" />
-                                                            <a onclick="deleteImage(this)" data-id="{{ $book->image }}"
-                                                                class="btn btn-outline-danger text-danger"
-                                                                style="border-radius:0;">Remove</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endif
+                                    <label id="file_id" class="custom-file-label" for="file">Choose File</label>
+                                </div>
+                                <div>
+                                    <p>
+                                        <span class="text-danger font-weight-bold">* Required</span>
+                                        <span class=".text-light ml-1">Upload Image in JPG, JPEG, PNG format only</span>
+                                    </p>
+                                </div>
+                                @if (isset($book) && $book->image)
+                                <div class="row mt-1">
+                                    <div class="col-sm-3">
+                                        <div class="card">
+                                            <img src="{{ asset('storage/books/' . $book->image) }}"
+                                                alt="post Image" />
+                                            <a onclick="deleteImage(this)" data-id="{{ $book->image }}"
+                                                class="btn btn-outline-danger text-danger"
+                                                style="border-radius:0;">Remove</a>
                                         </div>
                                     </div>
                                 </div>
+                            @endif
                             </div>
                             <div class="col-md-12 mt-50 mb-2">
                                 <button type="submit" class="btn btn-primary mr-1">
