@@ -3,16 +3,16 @@
 
 @section('vendor-style')
     {{-- Vendor Css files --}}
-    {{-- <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
-<link rel="stylesheet" href="{{ asset(mix('vendors/css/animate/animate.min.css')) }}">
-<link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
-<link rel="stylesheet" href="{{ asset(mix('css/base/pages/product_form.css')) }}"> --}}
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/animate/animate.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
+
 @endsection
 
 @section('page-style')
     {{-- Page Css files --}}
-    {{-- <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
-<link rel="stylesheet" href="{{asset(mix('css/base/plugins/extensions/ext-component-sweet-alerts.css'))}}"> --}}
+    <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
+<link rel="stylesheet" href="{{asset(mix('css/base/plugins/extensions/ext-component-sweet-alerts.css'))}}">
 
 @endsection
 @section('content')
@@ -52,7 +52,7 @@
                                 <div class="book">
                                     <div class="row">
                                         <div class="col-4">
-                                            <select class="form-control hide-search"  name="books[0][name]" required >
+                                            <select class="form-control hide-search"  name="books[0][name]" required onchange="getSelectedValues(this)" >
                                                 <option value=""> Select Book</option>
                                                 @foreach ($books as $book)
                                                 <option @if ((isset($record)) && $book->id == old('books[0][name]',
@@ -61,7 +61,7 @@
                                                     @elseif (old('books[0][name]') == $book->id)
                                                     selected
                                                     @endif
-                                                    value="{{ $book->id }}"
+                                                    value="{{ $book->id }}" data-quantity="{{ $book->quantity}}"
                                                     >
                                                     {{ $book->urdu_name }}
                                                 </option>
@@ -69,7 +69,7 @@
                                             </select>
                                         </div>
                                         <div class="col-4">
-                                        <input type="number" name="books[0][quantity]" placeholder="Quantity" class="form-control" required>
+                                        <input min="1" type="number" name="books[0][quantity]" placeholder="Quantity" class="form-control" required onchange="checkQuantity(this)">
                                         </div>
                                     </div>
                                 </div>
@@ -96,6 +96,9 @@
 @endsection
 
 @section('vendor-script')
+    <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
 @endsection
 
 @section('page-script')
@@ -109,7 +112,7 @@
         bookDiv.innerHTML = `
         <div class="row mt-2">
             <div class="col-4">
-                <select class="form-control hide-search" name="books[${bookCount}][name]" required>
+                <select class="form-control hide-search" name="books[${bookCount}][name]" required onchange="getSelectedValues(this)">
                         <option value="">Select Book</option>
                         @foreach ($books as $book)
                         <option @if ((isset($record)) && $book->id == old('books[${bookCount}][name]', $record->book_id))
@@ -117,7 +120,7 @@
                             @elseif (old('books[${bookCount}][name]') == $book->id)
                                 selected
                             @endif
-                            value="{{ $book->id }}"
+                            value="{{ $book->id }}" data-quantity="{{$book->quantity}}"
                             >
                             {{ $book->urdu_name }}
                         </option>
@@ -125,7 +128,7 @@
                 </select>
             </div>
             <div class="col-4">
-            <input type="number" class="form-control" name="books[${bookCount}][quantity]" placeholder="Quantity" required>
+            <input min="1" type="number" class="form-control" name="books[${bookCount}][quantity]" placeholder="Quantity" required onchange="checkQuantity(this)">
             </div>
             <button type="button" class="btn btn-primary mr-1" onclick="removeBook(this)">Remove</button>  
         </div>
@@ -137,5 +140,66 @@
         const bookDiv = button.parentNode;
         bookDiv.remove();
     }
+    function getSelectedValues(selectElement) {
+        const selectElements = document.getElementsByClassName('hide-search');
+
+        const selectedValues = [];
+        const Option = selectElement.options[selectElement.selectedIndex];
+        const bookDiv = selectElement.closest('.book');
+        const quantityInput = bookDiv.querySelector('input[name$="[quantity]"]');
+        
+       for (var i = 0; i < selectElements.length; i++) {
+            var selectedOption = selectElements[i].options[selectElements[i].selectedIndex];
+            var selectedValue = selectedOption.value;
+
+            if (selectElements[i] !== event.target) {
+            selectedValues.push(selectedValue);
+            }
+        }
+        if(selectedValues.includes(Option.value))
+        {
+            Swal.fire({
+                    title: 'Already Selected',
+                    text: "You have already selected this item",
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonText: 'Ok',
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                    },
+                    buttonsStyling: false
+            })
+            selectElement.value = "";
+        }
+        if(selectedOption.getAttribute('data-quantity') < quantityInput )
+        {
+            quantityInput.value = 0;
+        }
+    }
+    function checkQuantity(quantity) {
+        const bookDiv = quantity.closest('.book');
+        const book_data = bookDiv.querySelector('.hide-search');
+        const selectedOption = book_data.options[book_data.selectedIndex];
+        const dataAttribute = selectedOption.dataset.quantity;
+        console.log(quantity.value);
+        console.log(dataAttribute);
+
+        if(parseInt(dataAttribute) < parseInt(quantity.value))
+        {
+            Swal.fire({
+                    title: 'Quantity Exceeded',
+                    text: "You have only " +  dataAttribute + " Books In stock",
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonText: 'Ok',
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                    },
+                    buttonsStyling: false
+            })
+            quantity.value=0;
+        }
+    }
+
 </script>
 @endsection
