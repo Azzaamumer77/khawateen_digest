@@ -24,6 +24,9 @@ use Illuminate\Support\Facades\Auth;
 
 // Auth routes
 Auth::routes();
+Route::get("/page", function(){
+    return view("home");
+ });
 
 Route::group(['middleware' => 'auth'], function () {
     //Dashboard Routes
