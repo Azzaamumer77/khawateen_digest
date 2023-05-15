@@ -68,8 +68,8 @@
                                     <select class="form-control hide-search" id="publication" name="publication" required>
                                         <option value=""></option>
                                         @foreach ($publications as $publication)
-                                        <option @if ((isset($record)) && $publication->id == old('publication',
-                                            $record->publication_id))
+                                        <option @if ((isset($book)) && $publication->id == old('publication',
+                                            $book->publication_id))
                                             selected
                                             @elseif (old('publication') == $publication->id)
                                             selected
@@ -86,7 +86,7 @@
                                 <div class="form-group mb-2">
                                     <label for="quantity">Quantity</label>
                                     <input type="text" name="quantity" id="quantity" class="form-control"
-                                        @if (isset($book)) value="{{ old('quantity', $book->publications_name) }}" @else
+                                        @if (isset($book)) value="{{ old('quantity', $book->quantity) }}" @else
                                     value="{{ old('quantity') }}" @endif
                                         required />
                                 </div>
@@ -129,9 +129,9 @@
                                         <div class="card">
                                             <img src="{{ asset('storage/books/' . $book->image) }}"
                                                 alt="post Image" />
-                                            <a onclick="deleteImage(this)" data-id="{{ $book->image }}"
+                                            {{-- <a onclick="deleteImage(this)" data-id="{{ $book->image }}"
                                                 class="btn btn-outline-danger text-danger"
-                                                style="border-radius:0;">Remove</a>
+                                                style="border-radius:0;">Remove</a> --}}
                                         </div>
                                     </div>
                                 </div>
