@@ -12,12 +12,13 @@ class Bill extends Model
     [
      'customer_name',
      'invoice_no',
-     'total_amount'
+     'total_amount',
+     'discount'
 
     ];
 
     public function books()
     {
-        return $this->belongsToMany(Book::class)->withPivot('quantity');
+        return $this->belongsToMany(Book::class)->withPivot('quantity','discount');
     }
 }
