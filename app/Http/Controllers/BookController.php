@@ -128,33 +128,39 @@ class BookController extends Controller
             'publication' => 'required|max:255',
             'price' => 'required',
             'quantity' => 'required',
-            'file' => 'image|mimes:jpeg,png,jpg|required|max:20480',
-        ]);
-
-        $book = Book::whereId($id)->first();
-        if ($request->hasfile('file')) {
-            $image_name  = time() . '.' . Str::random(7) . '.' . $request->file('file')->getClientOriginalExtension();
-        }
-        $book->update([
-            'urdu_name' => $request->urdu_name,
-            'english_name' => $request->english_name,
-            'author' => $request->author,
-            'publication_id' => $request->publication,
-            'price' => $request->price,
-            'discounted_price' => $request->discounted_price,
-            'quantity' => $request->quantity,
-            'image' => $image_name,
+            'file' => 'image|mimes:jpeg,png,jpg|max:20480',
         ]);
         try {
+            $book = Book::whereId($id)->first();
+            $book->update([
+                'urdu_name' => $request->urdu_name,
+                'english_name' => $request->english_name,
+                'author' => $request->author,
+                'publication_id' => $request->publication,
+                'price' => $request->price,
+                'discounted_price' => $request->discounted_price,
+                'quantity' => $request->quantity,
+            ]);
+            if ($request->hasfile('file')) {
+                $image_name  = time() . '.' . Str::random(7) . '.' . $request->file('file')->getClientOriginalExtension();
+                $book = Book::whereId($id)->first();
+                $book->update([
+                'image' => $image_name,
+            ]);
+            }
 
             if ($book->save()) {
-                Storage::putFileAs('public/books/', $request->file('file'), $image_name);
+                if ($request->hasfile('file'))
+                {
+                    Storage::putFileAs('public/books/', $request->file('file'), $image_name);
+                }
                 return redirect()->route('books.index')
                     ->with('success', 'Book Updated successfully');
-            } else {
+            } 
+            else {
                 return redirect()->back()
-                    ->with('error', 'Error while adding book');
-            }
+                ->with('error', 'Error while adding book');
+             }
         } catch(\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->back()
