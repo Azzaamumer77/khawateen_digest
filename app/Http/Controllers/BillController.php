@@ -59,14 +59,18 @@ class BillController extends Controller
             $bill=Bill::create([
                 'customer_name'=>$request->name,
                 'invoice_no' => $request->invoice_no,
-                'total_amount' => $total_amount
+                'total_amount' => $request->total_bill,
+                'discount' => $request->total_discount
             ]);
             $books = $request->input('books'); // Assuming books input is an array of book IDs
 
         foreach ($books as $bookId) {
             $book = Book::find($bookId['name']);        
             if ($book) {
-                $bill->books()->attach($bookId['name'], ['quantity' => $bookId['quantity']]);
+                $bill->books()->attach($bookId['name'], [
+                    'quantity' => $bookId['quantity'],
+                    'discount' => $bookId['discount']
+                ]);
             }
         };
         $pdf = PDF::loadView('bills.invoice', compact('bill'));

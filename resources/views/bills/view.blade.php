@@ -59,6 +59,7 @@
                             <th>Book</th>
                             <th>Quantity</th>
                             <th>Price per Unit</th>
+                            <th>Discount</th>
                             <th>Total Price</th>
                         </tr>
                     </thead>
@@ -68,12 +69,14 @@
                             <td>{{ $book->urdu_name }}</td>
                             <td>{{$book->pivot->quantity }}</td>
                             <td>{{ $book->price }}</td>
-                            <td>{{$book->pivot->quantity * $book->price  }}</td>
+                            <td>{{$book->pivot->discount}}%</td>
+                            <td>{{($book->pivot->quantity * $book->price) - ((($book->pivot->quantity * $book->price) * $book->pivot->discount) /100) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <div class="total-amount">
+                    <p><strong>Totall Discount:</strong> {{ $bill->discount }}%</p>
                     <p><strong>Total Amount:</strong> {{ $bill->total_amount }}</p>
                 </div>                </div>
             </div>
