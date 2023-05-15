@@ -42,6 +42,8 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
+        $total_discount = $request->total_discount;
         $total_amount = 0;
         foreach($request->books as $book)
         {
@@ -54,22 +56,31 @@ class BillController extends Controller
             'name' => 'required',
             'invoice_no' => 'required|unique:bills',
         ]);
-
+        // dd($request->total_discount);
+        if($total_discount == null)
+        {
+            $total_discount = 0;
+        }
         try {
             $bill=Bill::create([
                 'customer_name'=>$request->name,
                 'invoice_no' => $request->invoice_no,
                 'total_amount' => $request->total_bill,
-                'discount' => $request->total_discount
+                'discount' => $total_discount
             ]);
             $books = $request->input('books'); // Assuming books input is an array of book IDs
 
         foreach ($books as $bookId) {
             $book = Book::find($bookId['name']);        
             if ($book) {
+                $discount = $bookId['discount'];
+                if($discount == null)
+                {
+                    $discount = 0;
+                }
                 $bill->books()->attach($bookId['name'], [
                     'quantity' => $bookId['quantity'],
-                    'discount' => $bookId['discount']
+                    'discount' => $discount
                 ]);
             }
         };
