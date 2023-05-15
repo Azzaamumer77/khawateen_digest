@@ -30,7 +30,7 @@ class BillController extends Controller
     public function create()
     {
         $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Add Record"]];
-        $books = Book::get();
+        $books = Book::where('quantity', '>', 0)->get();
         return view('bills.create', compact('breadcrumbs','books'));
     }
 
