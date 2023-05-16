@@ -4,6 +4,7 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\PostageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\PublicationInvoiceController;
@@ -44,6 +45,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Bills Routes
     Route::resource('bills', BillController::class);
+    //Postage Controller
+    Route::resource('postage', PostageController::class);
+
 
     //Publication Controller
     Route::resource('publications', PublicationController::class);

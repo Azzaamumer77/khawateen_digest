@@ -84,7 +84,7 @@
                                         <div class="form-group">
                                             <label class="form-label" for="name">Name</label>
                                             <input type="text" class="form-control" id="name" name="name"
-                                                placeholder="John Doe" value="{{ old('name', $user->name) }}" />
+                                                placeholder="Abdullah" value="{{ old('name', $user->name) }}" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-sm-12">
