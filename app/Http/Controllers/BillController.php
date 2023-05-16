@@ -42,7 +42,6 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $total_discount = $request->total_discount;
         $total_amount = 0;
         foreach($request->books as $book)
@@ -56,7 +55,6 @@ class BillController extends Controller
             'name' => 'required',
             'invoice_no' => 'required|unique:bills',
         ]);
-        // dd($request->total_discount);
         if($total_discount == null)
         {
             $total_discount = 0;

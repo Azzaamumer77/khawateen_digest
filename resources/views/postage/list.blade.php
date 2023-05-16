@@ -20,8 +20,8 @@
             <div class="row mb-2">
                 <div class="col-md-12">
                     <div class="text-right">
-                        <a class="btn btn-primary" href="{{ route('publications.create') }}">
-                            Add New Record
+                        <a class="btn btn-primary" href="{{ route('books.create') }}">
+                            Add New Book
                             <i class="fas fa-plus-circle"></i>
                         </a>
                     </div>
@@ -30,20 +30,35 @@
 
             </div>
             <hr>
-            <table class="table table-striped table-hover table-responsive-lg" id="publicationsTable">
-                @if ($publication_record->count())
+            <table class="table table-striped table-hover table-responsive-lg" id="booksTable">
+                @if ($books->count())
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Publication Name</th>
+                            <th>Urdu Name</th>
+                            <th>English Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Discounted Price</th>
+                            <th>Author</th>
+                            <th>Publications Name</th>
+                            <th>Image</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($publication_record as $record)
+                        @foreach ($books as $book)
                             <tr>
                                 <td scope="row">{{ $loop->iteration }}</td>
-                                <td>{{ $record->name }}</td>
+                                <td>{{ $book->english_name }}</td>
+                                <td>{{ $book->urdu_name }}</td>
+                                <td>{{ $book->quantity }}</td>
+                                <td>{{ $book->price }}</td>
+                                <td>{{ $book->discounted_price }}</td>
+                                <td>{{ $book->author }}</td>
+                                <td>{{ $book->publication->name }}</td>
+                                <td><img src="{{ asset('storage/books/' . $book->image) }}" alt="Book image"
+                                        style="max-width: 100px; max-height: 100px;"></td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
@@ -51,12 +66,12 @@
                                             <i data-feather="more-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('publications.edit', $record->id) }}">
+                                            <a class="dropdown-item" href="{{ route('books.edit', $book->id) }}">
                                                 <i data-feather="edit-2" class="mr-50"></i>
                                                 <span>Edit</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:void(0);" id="deleteRecord"
-                                                data-id="{{ $record->id }}">
+                                            <a class="dropdown-item" href="javascript:void(0);" id="deleteBook"
+                                                data-id="{{ $book->id }}">
                                                 <i data-feather="trash" class="mr-50"></i>
                                                 <span>Delete</span>
                                             </a>
@@ -67,7 +82,7 @@
                         @endforeach
                     </tbody>
                 @else
-                    <div class="font-weight-bold text-danger h3 text-center mt-5"><i class="fa fa-info-circle"></i>No Records
+                    <div class="font-weight-bold text-danger h3 text-center mt-5"><i class="fa fa-info-circle"></i>No Books
                         Found.
                     </div>
                 @endif
@@ -90,7 +105,7 @@
 @section('page-script')
     <script>
         $(document).ready(function() {
-            $("body").on("click", "#deleteRecord", function(e) {
+            $("body").on("click", "#deleteBook", function(e) {
                 var id = $(this).data("id");
                 Swal.fire({
                     title: 'Are you sure?',
@@ -113,7 +128,7 @@
                             },
                         });
                         $.ajax({
-                            url: '/publications/' + id,
+                            url: '/books/' + id,
                             type: "DELETE",
                             success: function(response) {
                                 location.reload();
@@ -127,7 +142,7 @@
                 });
             });
         });
-        $('#publicationsTable').DataTable({
+        $('#booksTable').DataTable({
             "drawCallback": function(settings) {
                 feather.replace({
                     width: 14,
