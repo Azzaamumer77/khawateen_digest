@@ -20,8 +20,8 @@
             <div class="row mb-2">
                 <div class="col-md-12">
                     <div class="text-right">
-                        <a class="btn btn-primary" href="{{ route('books.create') }}">
-                            Add New Book
+                        <a class="btn btn-primary" href="{{ route('postage.create') }}">
+                            Add New postage
                             <i class="fas fa-plus-circle"></i>
                         </a>
                     </div>
@@ -30,35 +30,30 @@
 
             </div>
             <hr>
-            <table class="table table-striped table-hover table-responsive-lg" id="booksTable">
-                @if ($books->count())
+            <table class="table table-striped table-hover table-responsive-lg" id="postagesTable">
+                @if ($postages->count())
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Urdu Name</th>
-                            <th>English Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Discounted Price</th>
-                            <th>Author</th>
-                            <th>Publications Name</th>
-                            <th>Image</th>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Registeration No</th>
+                            <th>Invoice No</th>
+                            <th>Date</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($books as $book)
+                        @foreach ($postages as $postage)
                             <tr>
                                 <td scope="row">{{ $loop->iteration }}</td>
-                                <td>{{ $book->english_name }}</td>
-                                <td>{{ $book->urdu_name }}</td>
-                                <td>{{ $book->quantity }}</td>
-                                <td>{{ $book->price }}</td>
-                                <td>{{ $book->discounted_price }}</td>
-                                <td>{{ $book->author }}</td>
-                                <td>{{ $book->publication->name }}</td>
-                                <td><img src="{{ asset('storage/books/' . $book->image) }}" alt="Book image"
-                                        style="max-width: 100px; max-height: 100px;"></td>
+                                <td>{{ $postage->name }}</td>
+                                <td>{{ $postage->city }}</td>
+                                <td>{{ $postage->registration_no }}</td>
+                                <td>{{ $postage->invoice_no }}</td>
+                                <td>{{ $postage->date }}</td>
+                                <td>{{ $postage->status }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
@@ -66,12 +61,12 @@
                                             <i data-feather="more-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('books.edit', $book->id) }}">
+                                            <a class="dropdown-item" href="{{ route('postage.edit', $postage->id) }}">
                                                 <i data-feather="edit-2" class="mr-50"></i>
                                                 <span>Edit</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:void(0);" id="deleteBook"
-                                                data-id="{{ $book->id }}">
+                                            <a class="dropdown-item" href="javascript:void(0);" id="deletepostage"
+                                                data-id="{{ $postage->id }}">
                                                 <i data-feather="trash" class="mr-50"></i>
                                                 <span>Delete</span>
                                             </a>
@@ -82,7 +77,7 @@
                         @endforeach
                     </tbody>
                 @else
-                    <div class="font-weight-bold text-danger h3 text-center mt-5"><i class="fa fa-info-circle"></i>No Books
+                    <div class="font-weight-bold text-danger h3 text-center mt-5"><i class="fa fa-info-circle"></i>No postages
                         Found.
                     </div>
                 @endif
@@ -105,11 +100,11 @@
 @section('page-script')
     <script>
         $(document).ready(function() {
-            $("body").on("click", "#deleteBook", function(e) {
+            $("body").on("click", "#deletepostage", function(e) {
                 var id = $(this).data("id");
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: "All of the data related to this book will also be deleted. You cannot revert this!",
+                    text: "All of the data related to this postage will also be deleted. You cannot revert this!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, delete it!',
@@ -128,7 +123,7 @@
                             },
                         });
                         $.ajax({
-                            url: '/books/' + id,
+                            url: '/postage/' + id,
                             type: "DELETE",
                             success: function(response) {
                                 location.reload();
@@ -142,7 +137,7 @@
                 });
             });
         });
-        $('#booksTable').DataTable({
+        $('#postagesTable').DataTable({
             "drawCallback": function(settings) {
                 feather.replace({
                     width: 14,

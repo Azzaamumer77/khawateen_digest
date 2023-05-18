@@ -106,7 +106,7 @@
           "slug": "postage.create"
         },
         {
-          "url": "postage.index",
+          "url": "postage",
           "name": "View",
           "icon": "circle",
           "slug": "postage.index"

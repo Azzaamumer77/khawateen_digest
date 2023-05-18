@@ -80,6 +80,19 @@
           </div>
       </div>
   </div>
+  <div class="col-xl-2 col-md-4 col-sm-6">
+    <div class="card text-center">
+        <div class="card-body">
+            <div class="avatar bg-light-info p-50 mb-1">
+                <div class="avatar-content">
+                    <i data-feather="user" class="font-medium-5"></i>
+                </div>
+            </div>
+            <h2 class="font-weight-bolder">{{$authors}}</h2>
+            <p class="card-text">Authors</p>
+        </div>
+    </div>
+</div>
 </div>
 <!-- Dashboard Analytics end -->
 @endsection
