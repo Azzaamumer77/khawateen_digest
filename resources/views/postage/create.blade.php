@@ -75,10 +75,14 @@
                                 <div class="form-group mb-2">
                                     <label for="quantity">Invoice No</label>
                                     <select class="form-control hide-search" id="invoice" name="invoice_no" required>
-                                        <option value="" ></option>
                                         <option value="" disabled selected>Select Invoice</option>
                                         @foreach ($invoices as $invoice)
-                                        <option value="{{ $invoice }}">{{ $invoice }}</option>
+                                        <option @if ((isset($postage)) && $invoice  == old('invoice_no',
+                                            $postage->invoice_no))
+                                            selected
+                                            @elseif (old('invoice_no') == $invoice)
+                                            selected
+                                            @endif value="{{ $invoice }}">{{ $invoice }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -87,7 +91,7 @@
                                 <div class="form-group mb-2">
                                     <label for="detail">Detail</label>
                                     <input type="text" name="detail" id="detail" class="form-control" placeholder="Enter Details"
-                                        @if (isset($postage)) value="{{ old('detail', $postage->detail) }}" @else
+                                        @if (isset($postage)) value="{{ old('detail', $postage->details) }}" @else
                                     value="{{ old('detail') }}" @endif
                                         required />
                                 </div>
@@ -97,9 +101,24 @@
                                     <label for="status">Status</label>
                                     <select class="form-control" id="status" name="status" required>
                                         <option value="" selected disabled>Select Status</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Received">Received</option>
-                                        <option value="Returned">Returned</option>
+                                        <option  @if ((isset($postage)) && $postage->status  == old('status',
+                                        "Pending"))
+                                        selected
+                                        @elseif (old('status'))
+                                        selected
+                                        @endif value="Pending">Pending</option>
+                                        <option  @if ((isset($postage)) && $postage->status  == old('status',
+                                        "Received"))
+                                        selected
+                                        @elseif (old('status'))
+                                        selected
+                                        @endif value="Received">Received</option>
+                                        <option  @if ((isset($postage)) && $postage->status  == old('status',
+                                        "Returned"))
+                                        selected
+                                        @elseif (old('status'))
+                                        selected
+                                        @endif value="Returned">Returned</option>
                                     </select>
                                 </div>
                             </div>
