@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Publication;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -10,6 +12,8 @@ class DashboardController extends Controller
         $breadcrumbs = [
             ['link'=>"/",'name'=>"Dashboard"], ['name'=>"Dashboard"]
         ];
-        return view('dashboard', ['breadcrumbs' => $breadcrumbs]);
+        $books = Book::count();
+        $publications = Publication::count();
+        return view('dashboard', ['breadcrumbs' => $breadcrumbs,'books' => $books,'publications' => $publications]);
     }
 }

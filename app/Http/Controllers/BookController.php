@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
 use App\Models\Publication;
 use App\Models\PublicationInvoice;
@@ -33,8 +34,9 @@ class BookController extends Controller
     public function create()
     {
         $publications = Publication::get();
+        $authors = Author::get();
         $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Add Books"]];
-        return view('books.create',compact('breadcrumbs','publications'));
+        return view('books.create',compact('breadcrumbs','publications','authors'));
     }
 
     /**
@@ -60,10 +62,15 @@ class BookController extends Controller
             if ($request->hasfile('file')) {
                 $image_name  = time() . '.' . Str::random(7) . '.' . $request->file('file')->getClientOriginalExtension();
             }
+            if($request->author == "other")
+            {
+                $author = Author::create(['name'=>$request->authorName]);
+                $author->save();
+            }
             $book = Book::create([
                 'urdu_name' => $request->urdu_name,
                 'english_name' => $request->english_name,
-                'author' => $request->author,
+                'author_id' => isset($author) ? $author->id : $request->author,
                 'publication_id' => $request->publication,
                 'price' => $request->price,
                 'discounted_price' => $request->discounted_price,
@@ -109,7 +116,8 @@ class BookController extends Controller
         $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['link' => "/books", 'name' => "All Books"], ['name' => "Edit Books"]];
         $book = Book::whereId($id)->first();
         $publications = Publication::get();
-        return view('books.create', compact('book','publications','breadcrumbs'));
+        $authors = Author::get();
+        return view('books.create', compact('book','publications','breadcrumbs','authors'));
     }
 
     /**
@@ -132,10 +140,15 @@ class BookController extends Controller
         ]);
         try {
             $book = Book::whereId($id)->first();
+            if($request->author == "other")
+            {
+                $author = Author::create(['name'=>$request->authorName]);
+                $author->save();
+            }
             $book->update([
                 'urdu_name' => $request->urdu_name,
                 'english_name' => $request->english_name,
-                'author' => $request->author,
+                'author_id' => isset($author) ? $author->id : $request->author,
                 'publication_id' => $request->publication,
                 'price' => $request->price,
                 'discounted_price' => $request->discounted_price,
