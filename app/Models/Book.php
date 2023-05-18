@@ -16,7 +16,7 @@ class Book extends Model
     'price',
     'discounted_price',
     'publication_id',
-    'author',
+    'author_id',
     'image',
    ];
    
@@ -27,5 +27,9 @@ class Book extends Model
     public function publication()
     {
         return $this->belongsTo(Publication::class);
+    }
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
     }
 }

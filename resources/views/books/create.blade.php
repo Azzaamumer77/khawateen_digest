@@ -55,15 +55,6 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group mb-2">
-                                    <label for="author">Author</label>
-                                    <input type="text" name="author" id="author" class="form-control"
-                                        @if (isset($book)) value="{{ old('author', $book->author) }}" @else
-                                    value="{{ old('author') }}" @endif
-                                        required />
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group mb-2">
                                     <label for="publications_name">Publications Name</label>
                                     <select class="form-control hide-search" id="publication" name="publication" required>
                                         <option value=""></option>
@@ -81,6 +72,33 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-group mb-2">
+                                    <label for="author">Select Author</label>
+                                    <select class="form-control hide-search" id="author" name="author" required onchange="handleSelectChange()">
+                                        <option value=""></option>
+                                        @foreach ($authors as $author)
+                                        <option @if ((isset($book)) && $author->id == old('author',
+                                            $book->author_id))
+                                            selected
+                                            @elseif (old('author') == $author->id)
+                                            selected
+                                            @endif
+                                            value="{{ $author->id }}"
+                                            >
+                                            {{ $author->name }}
+                                        </option>
+                                        @endforeach
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12" id="author_name" style="display: none;">
+                                <div class="form-group mb-2">
+                                    <label for="authorValue">Author Name:</label>
+                                    <input name="authorName" type="text"   value="{{ old('authorName') }}" id="authorValue" class="form-control">
+                                </div> 
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group mb-2">
@@ -160,4 +178,20 @@
 @endsection
 
 @section('page-script')
+<script>
+    function handleSelectChange() {
+    var selectElement = document.getElementById("author");
+    var authorName = document.getElementById("author_name");
+    var authorValue = document.getElementById("authorValue");
+
+    if (selectElement.value === "other") {
+      authorName.style.display = "block";
+      authorValue.required = true;
+    } else {
+      authorName.style.display = "none";
+      authorValue.value = "";
+      authorValue.required = false;
+    }
+  }
+</script>
 @endsection

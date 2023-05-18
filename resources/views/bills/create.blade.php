@@ -47,94 +47,104 @@
                                     </div>
                                 </div>
                             </div>
-                            <h4 class="font-weight-bolder"> Items</h4>
-                            <div id="books-container" class="mt-2">
-                                <div class="headings font-weight-bolder mb-3 text-center ">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            Book
-                                        </div>
-                                        <div class="col-2">
-                                           Quantity
-                                        </div>
-                                        <div class="col-2">
-                                            Discount(%)
-                                        </div>
-                                        <div class="col-2">
-                                            Amount
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="items ">
-                                    <div class="book">
+                            <div class="items">
+                                <h4 class="font-weight-bolder"> Items</h4>
+                                <div id="books-container" class="mt-2">
+                                    <div class="headings font-weight-bolder mb-3 text-center ">
                                         <div class="row">
                                             <div class="col-3">
-                                                <select class="form-control hide-search"  name="books[0][name]" required onchange="getSelectedValues(this)" >
-                                                    <option value=""> Select Book</option>
-                                                    @foreach ($books as $book)
-                                                    <option @if ((isset($record)) && $book->id == old('books[0][name]',
-                                                        $record->book_id))
-                                                        selected
-                                                        @elseif (old('books[0][name]') == $book->id)
-                                                        selected
-                                                        @endif
-                                                        value="{{ $book->id }}" data-quantity="{{ $book->quantity}}" data-amount="{{$book}}"
-                                                        >
-                                                        {{ $book->urdu_name }}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
+                                                Book
                                             </div>
                                             <div class="col-2">
-                                            <input min="1" type="number" name="books[0][quantity]" value="1" placeholder="Quantity" class="form-control" required onkeyup="checkQuantity(this)">
+                                            Quantity
                                             </div>
                                             <div class="col-2">
-                                                <input  type="number" name="books[0][discount]" placeholder="Discount(%)" class="form-control" onkeyup="amount_with_discount(this)" >
+                                                In Stock
                                             </div>
                                             <div class="col-2">
-                                                <input  type="number" name="books[0][amount]" placeholder="Amount" class="form-control amount" readonly>
+                                                Discount(%)
+                                            </div>
+                                            <div class="col-2">
+                                                Amount
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="items ">
+                                        <div class="book">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <select class="form-control hide-search"  name="books[0][name]" required onchange="getSelectedValues(this)" >
+                                                        <option value=""> Select Book</option>
+                                                        @foreach ($books as $book)
+                                                        <option @if ((isset($record)) && $book->id == old('books[0][name]',
+                                                            $record->book_id))
+                                                            selected
+                                                            @elseif (old('books[0][name]') == $book->id)
+                                                            selected
+                                                            @endif
+                                                            value="{{ $book->id }}" data-quantity="{{ $book->quantity}}" data-amount="{{$book}}"
+                                                            >
+                                                            {{ $book->urdu_name }}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-2">
+                                                <input min="1" type="number" name="books[0][quantity]" value="1" placeholder="Quantity" class="form-control" required onkeyup="checkQuantity(this)">
+                                                </div>
+                                                <div class="col-2">
+                                                    <input  type="number" name="books[0][instock]"  class="form-control" required readonly>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input  type="number" name="books[0][discount]" placeholder="Discount(%)" class="form-control" onkeyup="amount_with_discount(this)" >
+                                                </div>
+                                                <div class="col-2">
+                                                    <input  type="number" name="books[0][amount]" placeholder="Amount" class="form-control amount" readonly>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <br>
-                        
-                            <button type="button"  class="btn btn-primary mr-1" onclick="addBook()">Add Item</button>
-                            <div class="row mt-3">
-                                <div class="col-3">
+                                <br>
+                            
+                                <button type="button"  class="btn btn-primary mr-1" onclick="addBook()">Add Item</button>
+                                <div class="row mt-3">
+                                    <div class="col-3">
+                                    </div>
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-2">
+                                    Overall Discount(%): 
+                                    </div>
+                                    <div class="col-2">
+                                        Total Bill:
+                                    </div>
                                 </div>
-                                <div class="col-2">
+                                <div class="row">
+                                    <div class="col-3">
+                                    </div>
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-2">
+                                        <input  type="number" name="total_discount" placeholder="Discount(%)" class="form-control"  id ="total_discount" onkeyup="totalBill()" >
+                                    </div>
+                                    <div class="col-2">
+                                        <input  type="number" id="totalbill" name="total_bill" placeholder="Amount" class="form-control" readonly>
+                                    </div>
                                 </div>
-                                <div class="col-2">
-                                   Overall Discount(%): 
+                                <div class="col-md-12 mt-50 mb-2 text-right">
+                                    <button type="submit" class="btn btn-primary mr-1">
+                                        @if (isset($record))
+                                            Save Changes
+                                        @else
+                                            Generate Bill
+                                        @endif
+                                    </button>
+                                    <a href="{{ route('publications.index') }} " type="reset"
+                                        class="btn btn-outline-secondary">Cancel</a>
                                 </div>
-                                <div class="col-2">
-                                    Total Bill:
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                </div>
-                                <div class="col-2">
-                                </div>
-                                <div class="col-2">
-                                    <input  type="number" name="total_discount" placeholder="Discount(%)" class="form-control"  id ="total_discount" onkeyup="totalBill()" >
-                                </div>
-                                <div class="col-2">
-                                    <input  type="number" id="totalbill" name="total_bill" placeholder="Amount" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-50 mb-2 text-right">
-                                <button type="submit" class="btn btn-primary mr-1">
-                                    @if (isset($record))
-                                        Save Changes
-                                    @else
-                                        Generate Bill
-                                    @endif
-                                </button>
-                                <a href="{{ route('publications.index') }} " type="reset"
-                                    class="btn btn-outline-secondary">Cancel</a>
                             </div>
                     </form>
                 </div>
@@ -179,6 +189,9 @@
             <input min="1" type="number" value="1" class="form-control" name="books[${bookCount}][quantity]" placeholder="Quantity" required onkeyup="checkQuantity(this)">
             </div>
             <div class="col-2">
+                <input  type="number" name="books[${bookCount}][instock]"  class="form-control" required readonly>
+            </div>
+            <div class="col-2">
                 <input  type="number" name="books[${bookCount}][discount]"  placeholder="Discount(%)" class="form-control" onkeyup="amount_with_discount(this)">
             </div>
             <div class="col-2">
@@ -193,6 +206,7 @@
     function removeBook(button) {
         const bookDiv = button.parentNode;
         bookDiv.remove();
+        totalBill();
     }
    function getSelectedValues(selectElement) {
         const selectElements = document.getElementsByClassName('hide-search');
@@ -203,9 +217,10 @@
         const quantityInput = bookDiv.querySelector('input[name$="[quantity]"]');
         const amount = bookDiv.querySelector('input[name$="[amount]"]');
         const discount = bookDiv.querySelector('input[name$="[discount]"]');
+        const instock = bookDiv.querySelector('input[name$="[instock]"]');
         const book_data = JSON.parse(selectedOption.dataset.amount);
         let book_amount = parseInt(book_data.price);
-
+        
         Array.from(selectElements).forEach((element) => {
             if (element !== selectElement) {
                 selectedValues.push(element.value);
@@ -228,11 +243,14 @@
             Swal.fire(swalOptions);
             selectElement.value = "";
         }
-
-        if (parseInt(book_data.quantity) < parseInt(quantityInput.value)) {
+        else
+        {
+            instock.value = book_data.quantity;
+            if (parseInt(book_data.quantity) < parseInt(quantityInput.value)) {
             quantityInput.value = "1";
+            }
+            amount_with_discount(selectElement)
         }
-        amount_with_discount(selectElement)
 
         // if (quantityInput.value > 1) {
         //     book_amount *= parseInt(quantityInput.value);

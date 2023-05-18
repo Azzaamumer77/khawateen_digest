@@ -45,8 +45,27 @@
       ]
     },
     {
+      "name": "Author",
+      "icon": "user",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "authors/create",
+          "name": "Add",
+          "icon": "circle",
+          "slug": "authors.create"
+        },
+        {
+          "url": "authors",
+          "name": "List",
+          "icon": "circle",
+          "slug": "authors.index"
+        }
+      ]
+    },
+    {
       "name": "Publications",
-      "icon": "book",
+      "icon": "printer",
       "slug": "",
       "submenu": [
         {
@@ -77,7 +96,7 @@
     },
     {
       "name": "Postage",
-      "icon": "book",
+      "icon": "credit-card",
       "slug": "",
       "submenu": [
         {

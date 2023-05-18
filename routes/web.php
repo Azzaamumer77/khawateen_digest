@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
@@ -54,5 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('publication_invoices', PublicationInvoiceController::class);
     Route::get('/publications/records' , [PublicationController::class , 'random'])->name('publications.records');
 
-
+    //Author Controller
+    Route::resource('authors', AuthorController::class);
+ 
 });
