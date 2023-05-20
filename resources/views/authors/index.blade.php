@@ -12,6 +12,7 @@
     {{-- Page Css files --}}
     <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-sweet-alerts.css')) }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 @endsection
 @section('content')
     @include('panels.response')
@@ -36,6 +37,7 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Is popular</th>
                             <th>Image</th>
                             <th>Action</th>
                         </tr>
@@ -45,6 +47,7 @@
                             <tr>
                                 <td scope="row">{{ $loop->iteration }}</td>
                                 <td>{{ $author->name }}</td>
+                                <td>@if( $author->is_popular == 1) <i class="fas fa-check text-success"></i> @else <span class="text-danger"> X</span> @endif</td>
                                 <td><img @if($author->image)src="{{ asset('storage/authors/' . $author->image) }}" @else src="{{ asset('images/default.jpg') }}" @endif alt="author image"
                                         style="max-width: 100px; max-height: 100px;"></td>
                                 <td>

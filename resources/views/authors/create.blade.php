@@ -35,6 +35,12 @@
                             @method('PUT')
                         @endif
                         <div class="row">
+                            <div class="col-12">
+                                <div class="form-group mb-2">
+                                    <input type="checkbox" id="popular" name="popular" value="{{old('popular',1)}}" @if (isset($author) && ($author->is_popular == 1)) checked @endif >
+                                    <label for="popular" class="font-weight-bolder"> Mark as Popular</label>
+                                </div>
+                            </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group mb-2">
                                     <label for="blog-edit-title">Full Name</label>
@@ -102,7 +108,29 @@
 @endsection
 
 @section('vendor-script')
+<script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
 @endsection
 
 @section('page-script')
+@if((!isset($author)) || ((isset($author)) && $author->is_popular !=1))
+<script>
+$("#popular").change(function()
+  {
+    if(((this.checked) && ({{$popular_authors}} >=10)))  {
+        Swal.fire({
+            title: '',
+            text: "You have already marked 10 authors as popular",
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Ok',
+            customClass: {
+                confirmButton: 'btn btn-primary',
+            },
+            buttonsStyling: false
+        })
+        this.checked = false ;
+    }
+  });
+</script>
+@endif
 @endsection

@@ -29,7 +29,8 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return view('authors.create');
+        $popular_authors = Author::where('is_popular',1)->count();
+        return view('authors.create', compact('popular_authors'));
     }
 
     /**
@@ -48,6 +49,7 @@ class AuthorController extends Controller
             $author = Author::create([
                 'name'=>$request->name,
                 'services'=>$request->services,
+                'is_popular' => isset($request->popular) ? 1 : 0,
             ]);
             if($request->hasFile('file'))
             {
@@ -93,7 +95,8 @@ class AuthorController extends Controller
     public function edit($id)
     {
         $author = Author::find($id);
-        return view('authors.create',compact('author'));
+        $popular_authors = Author::where('is_popular',1)->count();
+        return view('authors.create',compact('author','popular_authors'));
     }
 
     /**
@@ -114,6 +117,7 @@ class AuthorController extends Controller
           $author->update([
               'name'=>$request->name,
               'services'=>$request->services,
+              'is_popular' => isset($request->popular) ? 1 : 0,
           ]);
           if($request->hasFile('file'))
           {

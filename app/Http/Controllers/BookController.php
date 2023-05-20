@@ -35,8 +35,9 @@ class BookController extends Controller
     {
         $publications = Publication::get();
         $authors = Author::get();
+        $popular_books = Book::where('is_popular',1)->count();
         $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Add Books"]];
-        return view('books.create',compact('breadcrumbs','publications','authors'));
+        return view('books.create',compact('breadcrumbs','publications','authors','popular_books'));
     }
 
     /**
@@ -71,6 +72,7 @@ class BookController extends Controller
                 'urdu_name' => $request->urdu_name,
                 'english_name' => $request->english_name,
                 'author_id' => isset($author) ? $author->id : $request->author,
+                'is_popular' => isset($request->popular) ? 1 : 0,
                 'publication_id' => $request->publication,
                 'price' => $request->price,
                 'discounted_price' => $request->discounted_price,
@@ -115,9 +117,10 @@ class BookController extends Controller
     {
         $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['link' => "/books", 'name' => "All Books"], ['name' => "Edit Books"]];
         $book = Book::whereId($id)->first();
+        $popular_books = Book::where('is_popular',1)->count();
         $publications = Publication::get();
         $authors = Author::get();
-        return view('books.create', compact('book','publications','breadcrumbs','authors'));
+        return view('books.create', compact('book','publications','breadcrumbs','authors','popular_books'));
     }
 
     /**
@@ -136,7 +139,7 @@ class BookController extends Controller
             'publication' => 'required|max:255',
             'price' => 'required',
             'quantity' => 'required',
-            'file' => 'image|mimes:jpeg,png,jpg|max:20480',
+            'file' => 'image|mimes:jpeg,png,jpg|max:20480'
         ]);
         try {
             $book = Book::whereId($id)->first();
@@ -149,6 +152,7 @@ class BookController extends Controller
                 'urdu_name' => $request->urdu_name,
                 'english_name' => $request->english_name,
                 'author_id' => isset($author) ? $author->id : $request->author,
+                'is_popular' => isset($request->popular) ? 1 : 0,
                 'publication_id' => $request->publication,
                 'price' => $request->price,
                 'discounted_price' => $request->discounted_price,

@@ -35,6 +35,12 @@
                             @method('PUT')
                         @endif
                         <div class="row">
+                            <div class="col-12">
+                                <div class="form-group mb-2">
+                                    <input type="checkbox" id="popular" name="popular" value="{{old('popular',1)}}" @if (isset($book) && ($book->is_popular == 1)) checked @endif>
+                                    <label for="popular" class="font-weight-bolder"> Mark as Popular</label>
+                                </div>
+                            </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group mb-2">
                                     <label for="blog-edit-title">Urdu Name</label>
@@ -153,7 +159,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+                                @endif
                             </div>
                             <div class="col-md-12 mt-50 mb-2">
                                 <button type="submit" class="btn btn-primary mr-1">
@@ -175,6 +181,7 @@
 @endsection
 
 @section('vendor-script')
+<script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
 @endsection
 
 @section('page-script')
@@ -194,4 +201,25 @@
     }
   }
 </script>
+@if((!isset($book)) || ((isset($book)) && $book->is_popular !=1))
+<script>
+  $("#popular").change(function()
+  {
+    if(((this.checked) && ({{$popular_books}} >=10))) {
+        Swal.fire({
+            title: '',
+            text: "You have already marked 10 books as popular",
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Ok',
+            customClass: {
+                confirmButton: 'btn btn-primary',
+            },
+            buttonsStyling: false
+        })
+        this.checked = false ;
+  }
+  });
+</script>
+@endif
 @endsection
