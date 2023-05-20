@@ -18,6 +18,7 @@ class Book extends Model
     'publication_id',
     'author_id',
     'image',
+    'is_popular'
    ];
    
    public function bills()

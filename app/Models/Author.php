@@ -12,7 +12,8 @@ class Author extends Model
     [
      'name',
      'services',
-     'image'   
+     'image',
+    'is_popular'
     ];
     
     public function books()

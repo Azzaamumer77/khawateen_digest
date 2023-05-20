@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PostageController;
 use App\Http\Controllers\ProfileController;
@@ -26,13 +27,11 @@ use Illuminate\Support\Facades\Auth;
 
 // Auth routes
 Auth::routes();
-Route::get("/page", function(){
-    return view("home");
- });
+Route::get('/', [HomeController::class, 'data']);
 
 Route::group(['middleware' => 'auth'], function () {
     //Dashboard Routes
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/password', [ProfileController::class, 'updatePasswordProfile'])->name('password.profile.update');
 
