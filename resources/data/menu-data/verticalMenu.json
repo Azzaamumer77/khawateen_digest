@@ -1,7 +1,7 @@
 {
   "menu": [
     {
-      "url": "/",
+      "url": "/dashboard",
       "name": "Dashboard",
       "icon": "home",
       "slug": "dashboard.index"
@@ -10,36 +10,107 @@
       "name": "Books",
       "icon": "book",
       "slug": "",
-      "submenu": [{
-              "url": "books",
-              "name": "List",
-              "icon": "circle",
-              "slug": "books.index"
-          },
-          {
-              "url": "books/create",
-              "name": "Add Book",
-              "icon": "circle",
-              "slug": "books.create"
-          }
+      "submenu": [
+        {
+          "url": "books",
+          "name": "List",
+          "icon": "circle",
+          "slug": "books.index"
+        },
+        {
+          "url": "books/create",
+          "name": "Add",
+          "icon": "circle",
+          "slug": "books.create"
+        }
       ]
     },
     {
       "name": "Bills",
       "icon": "bookmark",
       "slug": "",
-      "submenu": [{
-              "url": "bills",
-              "name": "List",
-              "icon": "circle",
-              "slug": "bills.index"
-          },
-          {
-              "url": "bills/create",
-              "name": "Generate Bill",
-              "icon": "circle",
-              "slug": "bills.create"
-          }
+      "submenu": [
+        {
+          "url": "bills",
+          "name": "List",
+          "icon": "circle",
+          "slug": "bills.index"
+        },
+        {
+          "url": "bills/create",
+          "name": "Generate Bill",
+          "icon": "circle",
+          "slug": "bills.create"
+        }
+      ]
+    },
+    {
+      "name": "Author",
+      "icon": "user",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "authors/create",
+          "name": "Add",
+          "icon": "circle",
+          "slug": "authors.create"
+        },
+        {
+          "url": "authors",
+          "name": "List",
+          "icon": "circle",
+          "slug": "authors.index"
+        }
+      ]
+    },
+    {
+      "name": "Publications",
+      "icon": "printer",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "publications/create",
+          "name": "Add",
+          "icon": "circle",
+          "slug": "publications.create"
+        },
+        {
+          "url": "publications",
+          "name": "View",
+          "icon": "circle",
+          "slug": "publications.index"
+        },
+        {
+          "url": "publication_invoices",
+          "name": "Invoices",
+          "icon": "circle",
+          "slug": "publication_invoices.index"
+        },
+        {
+          "url": "publication_invoices/create",
+          "name": "Add Invoice",
+          "icon": "circle",
+          "slug": "publication_invoices.create"
+        }
+      ]
+    },
+    {
+      "name": "Postage",
+      "icon": "credit-card",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "postage/create",
+          "name": "Add",
+          "icon": "circle",
+          "slug": "postage.create"
+        },
+        {
+          "url": "postage",
+          "name": "View",
+          "icon": "circle",
+          "slug": "postage.index"
+        }
       ]
     }
   ]

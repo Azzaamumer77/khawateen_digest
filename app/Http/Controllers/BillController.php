@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
+use App\Models\Book;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class BillController extends Controller
 {
@@ -13,7 +17,9 @@ class BillController extends Controller
      */
     public function index()
     {
-        //
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "View Records"]];
+        $bills = Bill::get();
+        return view('bills.index', compact('breadcrumbs', 'bills'));
     }
 
     /**
@@ -23,7 +29,9 @@ class BillController extends Controller
      */
     public function create()
     {
-        //
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Add Record"]];
+        $books = Book::where('quantity', '>', 0)->get();
+        return view('bills.create', compact('breadcrumbs','books'));
     }
 
     /**
@@ -34,7 +42,53 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $total_discount = $request->total_discount;
+        $total_amount = 0;
+        foreach($request->books as $book)
+        {
+            $book_id = Book::find($book['name']);
+            $left_quantity = $book_id->quantity - $book['quantity'];
+            $total_amount = $total_amount + (($book_id->price) * $book['quantity']) ;
+            $book_id->update(['quantity'=>$left_quantity]);
+        }
+        $request->validate([
+            'name' => 'required',
+            'invoice_no' => 'required|unique:bills',
+        ]);
+        if($total_discount == null)
+        {
+            $total_discount = 0;
+        }
+        try {
+            $bill=Bill::create([
+                'customer_name'=>$request->name,
+                'invoice_no' => $request->invoice_no,
+                'total_amount' => $request->total_bill,
+                'discount' => $total_discount
+            ]);
+            $books = $request->input('books'); // Assuming books input is an array of book IDs
+
+        foreach ($books as $bookId) {
+            $book = Book::find($bookId['name']);        
+            if ($book) {
+                $discount = $bookId['discount'];
+                if($discount == null)
+                {
+                    $discount = 0;
+                }
+                $bill->books()->attach($bookId['name'], [
+                    'quantity' => $bookId['quantity'],
+                    'discount' => $discount
+                ]);
+            }
+        };
+        $pdf = PDF::loadView('bills.invoice', compact('bill'));
+         return $pdf->download('invoice.pdf');
+        } catch(\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()
+                    ->with('error', 'Error while adding record');
+        }
     }
 
     /**
@@ -45,7 +99,8 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        //
+        $bill = Bill::find($id);
+        return view('bills.view', compact('bill'));
     }
 
     /**
@@ -79,6 +134,8 @@ class BillController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Bill::whereId($id)->delete();
+        return redirect()->route('publication_invoices.index')
+                    ->with('success', 'Record deleted successfully');
     }
 }

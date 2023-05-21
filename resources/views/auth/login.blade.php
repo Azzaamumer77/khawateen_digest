@@ -14,7 +14,7 @@
     <div class="card mb-0">
       <div class="card-body">
         <a href="javascript:void(0);" class="brand-logo">
-          <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="28">
+          {{-- <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="28">
             <defs>
               <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
                 <stop stop-color="#000000" offset="0%"></stop>
@@ -36,7 +36,7 @@
                 </g>
               </g>
             </g>
-          </svg>
+          </svg> --}}
           <h2 class="brand-text text-primary ml-1">Khawateen Magzine</h2>
         </a>
         <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
@@ -55,9 +55,9 @@
             <div class="d-flex justify-content-between">
               <label for="login-password">Password</label>
               @if (Route::has('password.request'))
-              <a href="{{ route('password.request') }}">
+              {{-- <a href="{{ route('password.request') }}">
                 <small>Forgot Password?</small>
-              </a>
+              </a> --}}
               @endif
             </div>
             <div class="input-group input-group-merge form-password-toggle">
@@ -76,7 +76,7 @@
           <button type="submit" class="btn btn-primary btn-block" tabindex="4">Sign in</button>
         </form>
 
-        <p class="text-center mt-2">
+        {{-- <p class="text-center mt-2">
           <span>New on our platform?</span>
           @if (Route::has('register'))
           <a href="{{ route('register') }}">
@@ -102,7 +102,7 @@
           <a href="javascript:void(0)" class="btn btn-github">
             <i data-feather="github"></i>
           </a>
-        </div>
+        </div> --}}
       </div>
     </div>
     <!-- /Login v1 -->

@@ -181,5 +181,10 @@ return [
   "Bills" => "Bills",
   "Add Book" => "Add Book",
   "Generate Bill" => "Generate Bill",
+  "Publications"=>"Publications",
+  "Postage"=>"Postage",
+  "Invoices"=>"Invoices",
+  "Add Invoice"=>"Add Invoice",
+  "Author"=>'Author',
   "message" => "Cake sesame snaps cupcake gingerbread danish I love gingerbread. Apple pie pie jujubes chupa chups muffin halvah lollipop. Chocolate cake oat cake tiramisu marzipan sugar plum. Donut sweet pie oat cake dragée fruitcake cotton candy lemon drops."
 ];
