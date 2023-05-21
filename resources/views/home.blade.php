@@ -139,12 +139,12 @@
         <div class="row counters">
 
           <div class=" col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="{{$books->count();}}" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="{{$total_books}}" data-purecounter-duration="1" class="purecounter"></span>
             <p>Books</p>
           </div>
 
           <div class="col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="{{$authors->count()}}" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="{{$total_authors}}" data-purecounter-duration="1" class="purecounter"></span>
             <p>Authors</p>
           </div>
 
@@ -445,7 +445,7 @@
         </a>
       </div>
     </section> --}}
-    {{-- <section>
+    <section>
       <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
         <div class=" carousel-inner justify-content-center">
           <div class="row carousel-item active">
@@ -464,7 +464,7 @@
           </div>
         </div>
       </div>
-    </section> --}}
+    </section>
     
 
   </main><!-- End #main -->

@@ -3,7 +3,7 @@
     body {
         font-family: Arial, sans-serif;
     }
-    h1 {
+    h1,h2 {
         text-align: center;
     }
     .invoice-details {
@@ -23,12 +23,16 @@
         font-weight: bold;
         margin-top: 20px;
     }
+    <style>
+    .card-body {
+        text-align: center;
+    }
 </style>
 
 <body>
     <div class="card">
         <div class="card-body">
-            <h2>Invoice</h2>
+            <h2 class="text-center"><b>Khawateen Magazine Publications</b></h2>
             <!-- Form -->
             <div class="invoice-details">
                 <p><strong>Invoice Number:</strong> {{ $bill->invoice_no }}</p>
@@ -59,8 +63,8 @@
             </table>
             <div class="total-amount">
                 <p><strong>Discount:</strong> {{ $bill->discount }}%</p>
-                <p><strong>Total Amount:</strong> {{ $bill->total_amount }}</p>
-            </div>                </div>
+                <p><strong>Total Amount:</strong> {{ number_format($bill->total_amount, 2, '.', ',') }}</p>
+            </div></div>
         </div>
     </div>
 </body>

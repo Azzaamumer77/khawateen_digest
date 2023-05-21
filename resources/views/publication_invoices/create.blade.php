@@ -66,7 +66,7 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group mb-2">
-                                    <label for="debit">Debit</label>
+                                    <label for="debit">Purchases</label>
                                     <input type="number" name="debit" id="debit" class="form-control"
                                         @if (isset($record)) value="{{ old('debit', $record->debit) }}" @else
                                     value="{{ old('debit') }}" @endif
@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group mb-2">
-                                    <label for="credit">Credit</label>
+                                    <label for="credit">Sales</label>
                                     <input type="number" name="credit" id="credit"
                                         class="form-control"
                                         @if (isset($record)) value="{{ old('credit', $record->credit) }}" @else

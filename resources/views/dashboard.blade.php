@@ -42,7 +42,7 @@
           </div> --}}
           <div class="text-center">
             <h1 class="mb-1 text-white"> Welcome!</h1>
-            <h1 class="mb-1 text-white">Khawateen Magazine Shop Dashboard</h1>
+            <h1 class="mb-1 text-white">Khawateen Magazine Publications Dashboard</h1>
             {{-- <p class="card-text m-auto w-75">
               You have done <strong>57.6%</strong> more sales today. Check your new badge in your profile.
             </p> --}}

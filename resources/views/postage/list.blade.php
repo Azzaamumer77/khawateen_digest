@@ -51,8 +51,8 @@
                                 <td>{{ $postage->name }}</td>
                                 <td>{{ $postage->city }}</td>
                                 <td>{{ $postage->registration_no }}</td>
-                                <td>{{ $postage->invoice_no }}</td>
-                                <td>{{ $postage->date }}</td>
+                                <td>{{ $postage->invoice_no ? intval($postage->invoice_no) : ' '}}</td>
+                                <td>{{ date(Config::get('date.date_format'), strtotime($postage->date))}}</td>
                                 <td>{{ $postage->status }}</td>
                                 <td>
                                     <div class="dropdown">

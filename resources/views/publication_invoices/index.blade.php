@@ -43,8 +43,8 @@
                             <th>#</th>
                             <th>Publication Name</th>
                             <th>Invoice Number</th>
-                            <th>Debit</th>
-                            <th>Credit</th>
+                            <th>Purchases</th>
+                            <th>Sales</th>
                             <th>Date</th>
                             <th>Action</th>
                         </tr>
