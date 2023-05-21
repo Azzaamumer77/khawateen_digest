@@ -50,7 +50,7 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="active" href="index.html">Home</a></li>
+          <li><a class="active" href="/">Home</a></li>
           {{-- <li><a href="about.html">About</a></li>
           <li><a href="courses.html">Courses</a></li>
           <li><a href="trainers.html">Trainers</a></li>
@@ -74,7 +74,7 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li> --}}
-          <li><a href="contact.html">Contact</a></li>
+          {{-- <li><a href="contact.html">Contact</a></li> --}}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -445,28 +445,33 @@
         </a>
       </div>
     </section> --}}
-    {{-- <section>
-      <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <div class=" carousel-inner justify-content-center">
-          <div class="row carousel-item active">
-            <div class="col-md-6">
-              Author name
-           </div>
-           <div class="col-md-6">
-            <img class="d-block" src="{{asset('images/trainers/trainer-1.jpg')}}" alt="First slide">
-           </div>
+ 
+  <section>
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+        <p>Our Authors</p>
+    </div>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner justify-content-center">
+        @foreach($authors as $key => $author)
+          <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <div class="d-flex justify-content-center">
+                  <div class="text-center">
+                    <h1><i>{{$author->name}}</i></h1>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <img  style="height:400px" @if($author->image)  src="{{ asset('storage/authors/' . $author->image) }}" @else src="{{asset('images/user-image.png')}}"  @endif alt="Slide {{$key + 1}}">
+              </div>
+            </div>
           </div>
-          <div class="carousel-item">
-            <img class="d-block" src="{{asset('images/trainers/trainer-2.jpg')}}" alt="Second slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block " src="{{asset('images/trainers/trainer-3.jpg')}}" alt="Third slide">
-          </div>
-        </div>
+        @endforeach
       </div>
-    </section>
-     --}}
 
+    </section>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
