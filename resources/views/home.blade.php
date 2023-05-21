@@ -94,11 +94,11 @@
 
   <main id="main">
      <!-- ======= Counts Section ======= -->
-    <section id="counts" class="counts bg-success">
+    <section id="counts" class="counts section-bg">
       <div class="container">
         <div class="row justify-content-center">
             {{-- <span data-purecounter-start="0" data-purecounter-end="{{$books->count();}}" data-purecounter-duration="1" class="purecounter"></span> --}}
-            <h1 class="underline text-center text-light"><u class="mt-1">Since 1973</u> </h1>
+            <h1 class=" text-center text-light" ><b style="color:#57db40">Since 1996</b></h1>
         </div>
       </div>
     </section><!-- End Counts Section -->
@@ -139,12 +139,12 @@
         <div class="row counters">
 
           <div class=" col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="{{$books->count();}}" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="{{$total_books}}" data-purecounter-duration="1" class="purecounter"></span>
             <p>Books</p>
           </div>
 
           <div class="col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="{{$authors->count()}}" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="{{$total_authors}}" data-purecounter-duration="1" class="purecounter"></span>
             <p>Authors</p>
           </div>
 
@@ -470,11 +470,8 @@
           </div>
         @endforeach
       </div>
-    </div>    
-  </div>
-</section>
 
-
+    </section>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

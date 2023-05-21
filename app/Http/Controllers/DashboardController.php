@@ -10,12 +10,9 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
-        $breadcrumbs = [
-            ['link'=>"/",'name'=>"Dashboard"], ['name'=>"Dashboard"]
-        ];
         $books = Book::count();
         $publications = Publication::count();
         $authors = Author::count();
-        return view('dashboard', ['breadcrumbs' => $breadcrumbs,'books' => $books,'publications' => $publications,'authors'=>$authors]);
+        return view('dashboard', ['books' => $books,'publications' => $publications,'authors'=>$authors]);
     }
 }

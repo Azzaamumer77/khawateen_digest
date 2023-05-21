@@ -74,8 +74,8 @@
                             <div class="col-md-6 col-12">
                                 <div class="form-group mb-2">
                                     <label for="quantity">Invoice No</label>
-                                    <select class="form-control hide-search" id="invoice" name="invoice_no" required>
-                                        <option value="" disabled selected>Select Invoice</option>
+                                    <select class="form-control hide-search" id="invoice" name="invoice_no" >
+                                        <option value="" selected>Select Invoice</option>
                                         @foreach ($invoices as $invoice)
                                         <option @if ((isset($postage)) && $invoice  == old('invoice_no',
                                             $postage->invoice_no))

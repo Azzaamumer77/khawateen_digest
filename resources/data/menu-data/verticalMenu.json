@@ -1,7 +1,7 @@
 {
   "menu": [
     {
-      "url": "/",
+      "url": "/dashboard",
       "name": "Dashboard",
       "icon": "home",
       "slug": "dashboard.index"

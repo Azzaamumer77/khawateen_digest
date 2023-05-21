@@ -47,7 +47,7 @@ class PostageController extends Controller
                 'city' => 'required|max:255',
                 'registration_no' => 'required|max:255',
                 'date' => 'required',
-                'invoice_no' => 'required',
+                'invoice_no' => '',
             ]
         );
         try{
@@ -118,7 +118,7 @@ class PostageController extends Controller
                 'city' => 'required|max:255',
                 'registration_no' => 'required|max:255',
                 'date' => 'required',
-                'invoice_no' => 'required',
+                'invoice_no' => '',
             ]
         );
         try{

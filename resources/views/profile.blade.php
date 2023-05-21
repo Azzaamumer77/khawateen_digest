@@ -75,7 +75,7 @@
 
                             <!-- form -->
                             {{-- TODO: Edit Form to better reflect field data --}}
-                            <form class="jquery-val-form mt-2" method="POST" enctype="multipart/form-data"
+                            <form class="jquery-val-form mt-2" method="PUT" enctype="multipart/form-data"
                                 action="">
                                 @csrf
                                 @method('PUT')
