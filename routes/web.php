@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/password', [ProfileController::class, 'updatePasswordProfile'])->name('password.profile.update');
+    Route::put('/profile/user', [ProfileController::class, 'updateProfile'])->name('user.profile.update');
 
     //Books Routes
     Route::resource('books', BookController::class);

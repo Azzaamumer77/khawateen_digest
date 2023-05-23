@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -36,5 +37,19 @@ class ProfileController extends Controller
             return redirect()->back()
                 ->with('error', 'Error while updating password');
         }
+    }
+    public function updateProfile(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $user->update([
+            'name'=>$request->name]);
+        if ($user->save()) {
+            return redirect()->route('profile')
+                ->with('success', 'Profile updated successfully');
+        } else {
+            return redirect()->back()
+                ->with('error', 'Error while updating profile');
+        }
+        
     }
 }

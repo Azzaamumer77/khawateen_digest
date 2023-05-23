@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/home/remixicon/remixicon.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/home/swiper/swiper-bundle.min.css')) }}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <link rel="stylesheet" href="{{ asset(mix('css/base/pages/home.css')) }}">
 
@@ -44,7 +45,7 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">Khawateen Magazine</a></h1>
+      <h1 class="logo me-auto font-weight-bolder" style="font-style:oblique"><a href="index.html">Khawateen Magazine</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -106,31 +107,20 @@
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
       <div class="container" data-aos="fade-up">
-
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
             <img src="{{asset('images/about.jpg')}}" class="img-fluid" alt="">
           </div>
-          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-            <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-            </ul>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-            </p>
-
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content d-flex align-items-center justify-content-center">
+            <div>
+              <h3 class="text-center font-weight-bolder" style="font-style:oblique">Abbas Akhtar Awan</h3>
+              <p class="text-center fst-italic ">CEO</p>
+            </div>
           </div>
         </div>
-
       </div>
-    </section><!-- End About Section -->
+    </section>
+    
 
     <!-- ======= Counts Section ======= -->
     <section id="counts" class="counts section-bg">
@@ -452,24 +442,46 @@
         <p>Our Authors</p>
     </div>
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner justify-content-center">
-        @foreach($authors as $key => $author)
+      <!-- Slides -->
+      <div class="carousel-inner justify-content-center" style="padding-bottom: 100px">
+        @foreach($authors->chunk(3) as $key => $chunk)
           <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-            <div class="row align-items-center">
-              <div class="col-md-4">
-                <div class="d-flex justify-content-center">
-                  <div class="text-center">
-                    <h1><i>{{$author->name}}</i></h1>
+            <div class="row justify-content-center">
+              @foreach($chunk as $author)
+                <div class="col-md-3 ml-3 mr-3 border">
+                  <img style="height: 400px; object-fit: contain" class="w-100" @if($author->image) src="{{ asset('storage/authors/' . $author->image) }}" @else src="{{asset('images/user-image.png')}}" @endif alt="{{$author->name}}">
+                  <div class="d-flex justify-content-center">
+                    <div class="text-center">
+                      <h1><i>{{$author->name}}</i></h1>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-8">
-                <img  style="height:400px" @if($author->image)  src="{{ asset('storage/authors/' . $author->image) }}" @else src="{{asset('images/user-image.png')}}"  @endif alt="Slide {{$key + 1}}">
-              </div>
+              @endforeach
             </div>
           </div>
         @endforeach
       </div>
+
+        <!-- Indicators -->
+      <ol class="carousel-indicators" style="bottom:10px;">
+        @foreach($authors->chunk(3) as $key => $chunk)
+          <li data-target="#carouselExampleSlidesOnly" data-slide-to="{{$key}}" class="{{$key == 0 ? 'active' : ''}} bg-dark"></li>
+        @endforeach
+      </ol>
+    
+      <!-- Controls -->
+      <a class="carousel-control-prev" href="#carouselExampleSlidesOnly" role="button" data-slide="prev">
+        <span><i class="fa fa-angle-left text-dark font-weight-bolder" aria-hidden="true"></i></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleSlidesOnly" role="button" data-slide="next">
+        <span><i class="fa fa-angle-right text-dark font-weight-bolder" aria-hidden="true"></i></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>    
+ </div>
+</section>
+
 
     </section>
   </main><!-- End #main -->
