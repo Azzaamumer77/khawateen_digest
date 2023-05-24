@@ -114,6 +114,8 @@
                                     <div class="col-2">
                                     </div>
                                     <div class="col-2">
+                                    </div>
+                                    <div class="col-2">
                                     Overall Discount(%): 
                                     </div>
                                     <div class="col-2">
@@ -324,7 +326,7 @@
             if (discount.value && discount.value !== "0") {
                 book_amount = book_amount  - ((book_amount * parseInt(discount.value)) / 100);
             }
-            amount.value = book_amount; 
+            amount.value = book_amount.toFixed(2); 
             totalBill();
         }
     }
@@ -344,7 +346,7 @@
         {
             totalAmount = totalAmount - ((totalAmount * overallDiscount.value) /100)
         }
-        $('#totalbill').val(totalAmount);
+        $('#totalbill').val(totalAmount.toFixed(2));
     }
 
 

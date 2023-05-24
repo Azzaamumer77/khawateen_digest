@@ -75,8 +75,8 @@
 
                             <!-- form -->
                             {{-- TODO: Edit Form to better reflect field data --}}
-                            <form class="jquery-val-form mt-2" method="PUT" enctype="multipart/form-data"
-                                action="">
+                            <form class="jquery-val-form mt-2" method="POST" enctype="multipart/form-data"
+                                action="{{ route('user.profile.update') }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -84,7 +84,7 @@
                                         <div class="form-group">
                                             <label class="form-label" for="name">Name</label>
                                             <input type="text" class="form-control" id="name" name="name"
-                                                placeholder="Abdullah" value="{{ old('name', $user->name) }}" />
+                                                placeholder="Enter Name" value="{{ old('name', $user->name) }}" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-sm-12">
