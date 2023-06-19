@@ -11,14 +11,14 @@ class PublicationController extends Controller
 {
     public function index()
     {
-        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "View Records"]];
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "View Publications"]];
         $publication_record = Publication::get();
         return view('publications.index', compact('breadcrumbs', 'publication_record'));
     }
 
     public function create()
     {
-        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Add Record"]];
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Add Publication"]];
         return view('publications.create', compact('breadcrumbs'));
     }
 
@@ -44,7 +44,7 @@ class PublicationController extends Controller
 
     public function edit($id)
     {
-        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Update Records"]];
+        $breadcrumbs = [['link' => "/", 'name' => "Dashboard"], ['name' => "Update Publication"]];
         $record = Publication::whereId($id)->first();
         return view('publications.create', compact('breadcrumbs', 'record'));
     }
