@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>خواتین میگزین</title>
+  <title>Khawateen Magazine</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -109,7 +109,7 @@
       <div class="container" data-aos="fade-up">
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
-            <img src="{{asset('images/about.jpg')}}" class="img-fluid" alt="">
+            <img src="{{asset('images/abbas.jpeg')}}" class="img-fluid" alt="">
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content d-flex align-items-center justify-content-center">
             <div>
