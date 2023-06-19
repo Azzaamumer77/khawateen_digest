@@ -21,7 +21,7 @@
                 <div class="col-md-12">
                     <div class="text-right">
                         <a class="btn btn-primary" href="{{ route('publications.create') }}">
-                            Add New Record
+                            Add New Publication
                             <i class="fas fa-plus-circle"></i>
                         </a>
                     </div>
@@ -67,8 +67,8 @@
                         @endforeach
                     </tbody>
                 @else
-                    <div class="font-weight-bold text-danger h3 text-center mt-5"><i class="fa fa-info-circle"></i>No Records
-                        Found.
+                    <div class="font-weight-bold text-danger h3 text-center mt-5"><i class="fa fa-info-circle"></i>No publication_record Records
+                        Found
                     </div>
                 @endif
             </table>

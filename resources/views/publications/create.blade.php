@@ -22,9 +22,9 @@
             <div class="card">
                 <div class="card-body">
                     @if(isset($record))
-                    <h2>Edit Record</h2>
+                    <h2>Edit Publication</h2>
                     @else
-                    <h2>Add record</h2>
+                    <h2>Add Publication</h2>
                     @endif
                     <!-- Form -->
                     <form id="jquery-val-form" class="form form-horizontal mt-2" enctype="multipart/form-data" method="POST"
@@ -50,7 +50,7 @@
                                     @if (isset($record))
                                         Save Changes
                                     @else
-                                        Add Record
+                                        Add
                                     @endif
                                 </button>
                                 <a href="{{ route('publications.index') }} " type="reset"
