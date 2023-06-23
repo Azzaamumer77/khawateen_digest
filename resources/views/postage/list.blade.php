@@ -53,7 +53,18 @@
                                 <td>{{ $postage->registration_no }}</td>
                                 <td>{{ $postage->invoice_no ? intval($postage->invoice_no) : ' '}}</td>
                                 <td>{{ date(Config::get('date.date_format'), strtotime($postage->date))}}</td>
-                                <td>{{ $postage->status }}</td>
+                                {{-- <td>{{ $postage->status }}</td>
+                                 --}}
+                                 <td>
+                                    @if($postage->status == 'Received')
+                                        <span class="badge badge-success">{{ $postage->status }}</span>
+                                    @elseif($postage->status == 'Returned')
+                                        <span class="badge badge-danger">{{ $postage->status }}</span>
+                                    @else
+                                    <span class="badge badge-light-primary">{{ $postage->status }}</span>
+                                    @endif
+                                </td>
+                                
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"

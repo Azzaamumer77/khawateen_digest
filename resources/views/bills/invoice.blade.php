@@ -27,12 +27,17 @@
     .card-body {
         text-align: center;
     }
+    .custom-heading {
+    text-align: center;
+}
 </style>
 
 <body>
     <div class="card">
         <div class="card-body">
             <h2 class="text-center"><b>Khawateen Magazine Publications</b></h2>
+            <h4 class="text-center custom-heading"><b>Mansoorah Multan Road Lahore | 03214708024</b></h4>
+        <!-- Form -->
             <!-- Form -->
             <div class="invoice-details">
                 <p><strong>Invoice Number:</strong> {{ $bill->invoice_no }}</p>

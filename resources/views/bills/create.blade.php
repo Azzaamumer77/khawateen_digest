@@ -116,8 +116,10 @@
                                     <div class="col-2">
                                     </div>
                                     <div class="col-2">
-                                    Overall Discount(%): 
                                     </div>
+                                    {{-- <div class="col-2">
+                                    Overall Discount(%): 
+                                    </div> --}}
                                     <div class="col-2">
                                         Total Bill:
                                     </div>
@@ -129,8 +131,10 @@
                                     </div>
                                     <div class="col-2">
                                     </div>
-                                    <div class="col-2">
+                                    {{-- <div class="col-2">
                                         <input  type="number" name="total_discount" placeholder="Discount(%)" class="form-control"  id ="total_discount" onkeyup="totalBill()" >
+                                    </div> --}}
+                                    <div class="col-2">
                                     </div>
                                     <div class="col-2">
                                         <input  type="number" id="totalbill" name="total_bill" placeholder="Amount" class="form-control" readonly>
@@ -333,7 +337,7 @@
     function totalBill()
     {
         const amounts = document.getElementsByClassName('amount');
-        const overallDiscount = document.getElementById('total_discount')
+        // const overallDiscount = document.getElementById('total_discount')
         var totalAmount = 0;
         for (let i = 0; i < amounts.length; i++) {
             const amountValue = parseFloat(amounts[i].value);
@@ -342,10 +346,10 @@
                 totalAmount += amountValue;
             }
         }
-        if(overallDiscount.value != '' && overallDiscount.value != 0)
-        {
-            totalAmount = totalAmount - ((totalAmount * overallDiscount.value) /100)
-        }
+        // if(overallDiscount.value != '' && overallDiscount.value != 0)
+        // {
+        //     totalAmount = totalAmount - ((totalAmount * overallDiscount.value) /100)
+        // }
         $('#totalbill').val(totalAmount.toFixed(2));
     }
 

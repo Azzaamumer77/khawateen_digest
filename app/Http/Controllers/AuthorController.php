@@ -48,7 +48,6 @@ class AuthorController extends Controller
         try{
             $author = Author::create([
                 'name'=>$request->name,
-                'services'=>$request->services,
                 'is_popular' => isset($request->popular) ? 1 : 0,
             ]);
             if($request->hasFile('file'))

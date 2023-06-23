@@ -124,7 +124,7 @@
                                         required />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
+                            {{-- <div class="col-md-6 col-12">
                                 <div class="form-group mb-2">
                                     <label for="discounted_price">Discounted Price</label>
                                     <input type="text" name="discounted_price" id="discounted_price" class="form-control"
@@ -132,7 +132,7 @@
                                     value="{{ old('discounted_price') }}" @endif
                                         required />
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-lg-12 mb-2">
                                 <label for="discounted_price">Add Image</label>
                                 <div class="col-md-6 form-group">

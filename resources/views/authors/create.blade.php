@@ -52,14 +52,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 col-12">
-                                <div class="form-group mb-2">
-                                    <label for="services">Services</label>
-                                    <textarea name="services" id="services" class="form-control">@if(isset($author)){{$author->services}}@endif</textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-12 mb-2">
                                 <label for="discounted_price">Add Image</label>
                                 <div class="col-md-6 form-group">
