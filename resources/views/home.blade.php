@@ -99,7 +99,7 @@
       <div class="container">
         <div class="row justify-content-center">
             {{-- <span data-purecounter-start="0" data-purecounter-end="{{$books->count();}}" data-purecounter-duration="1" class="purecounter"></span> --}}
-            <h1 class=" text-center text-light" ><b style="color:#57db40">Since 1996</b></h1>
+            <h1 class=" text-center text-light" ><b style="color:#57db40">Since 1995</b></h1>
         </div>
       </div>
     </section><!-- End Counts Section -->
@@ -493,15 +493,18 @@
       <div class="container">
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 footer-contact">
+          <div class="col-lg-6 col-md-6 footer-contact">
             <h3>خواتین میگزین</h3>
             <p>
               51-Kamran Park Near Mansoorah Multan Road<br>
               Lahore,Punjab<br>
               Pakistan <br><br>
-              <strong>Mobile:</strong> 0321-4708024<br>
-              <strong>Telephone:</strong> 0423-5252152<br>
+              <strong>Mobile:</strong> 0335-1479718 | 0321-4708024<br>
               <strong>Email:</strong> khawateenmagazine@yahoo.com<br>
+              <strong>HBL Account Title:</strong>  KHAWATEEN MAGAZINE<br>
+              <strong>Account Number:</strong> 0554-0034315003<br>
+              <strong>JazzCash | EasyPaisa Title: </strong>MALIK MUHAMMAD ABBAS AKHTAR<br>
+              <strong>JazzCash | EasyPaisa Account: </strong>0321-4708024<br>
             </p>
           </div>
 

@@ -75,7 +75,7 @@ class BookController extends Controller
                 'is_popular' => isset($request->popular) ? 1 : 0,
                 'publication_id' => $request->publication,
                 'price' => $request->price,
-                'discounted_price' => $request->discounted_price,
+                // 'discounted_price' => $request->discounted_price,
                 'quantity' => $request->quantity,
                 'image' => $image_name,
             ]);
@@ -155,7 +155,7 @@ class BookController extends Controller
                 'is_popular' => isset($request->popular) ? 1 : 0,
                 'publication_id' => $request->publication,
                 'price' => $request->price,
-                'discounted_price' => $request->discounted_price,
+                // 'discounted_price' => $request->discounted_price,
                 'quantity' => $request->quantity,
             ]);
             if ($request->hasfile('file')) {
