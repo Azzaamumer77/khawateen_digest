@@ -153,9 +153,10 @@
                                         <div class="card">
                                             <img src="{{ asset('storage/books/' . $book->image) }}"
                                                 alt="post Image" />
-                                            {{-- <a onclick="deleteImage(this)" data-id="{{ $book->image }}"
-                                                class="btn btn-outline-danger text-danger"
-                                                style="border-radius:0;">Remove</a> --}}
+                                                <input type="hidden" name="remove_image" id="remove_image_input" value="0">
+                                                <a onclick="deleteImage(this); document.getElementById('remove_image_input').value = '0';"
+                                                    data-id="{{ $book->image }}" class="btn btn-outline-danger text-danger"
+                                                    style="border-radius: 0;">Remove</a>
                                         </div>
                                     </div>
                                 </div>
@@ -221,5 +222,21 @@
   }
   });
 </script>
+
+<script>
+    function deleteImage(element) {
+        // Remove the image element
+        var card = element.closest('.card');
+        var image = card.querySelector('img');
+        card.removeChild(image);
+
+        // Remove the "Remove" button
+        card.removeChild(element);
+        var hiddenInput = document.querySelector('input[name="delete_image"]');
+        hiddenInput.value = "true";
+    }
+</script>
+
+
 @endif
 @endsection
