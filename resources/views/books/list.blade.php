@@ -41,7 +41,7 @@
                             <th>Is popular</th>
                             <th>Quantity</th>
                             <th>Price</th>
-                            <th>Discounted Price</th>
+                            {{-- <th>Discounted Price</th> --}}
                             <th>Author</th>
                             <th>Publications Name</th>
                             <th>Image</th>
@@ -57,7 +57,7 @@
                                 <td>@if( $book->is_popular == 1) <i class="fas fa-check text-success"></i> @else <span class="text-danger"> X</span> @endif</td>
                                 <td>{{ $book->quantity }}</td>
                                 <td>{{ $book->price }}</td>
-                                <td>{{ $book->discounted_price }}</td>
+                                {{-- <td>{{ $book->discounted_price }}</td> --}}
                                 <td>{{ $book->author->name }}</td>
                                 <td>{{ $book->publication->name }}</td>
                                 <td><img src="{{ asset('storage/books/' . $book->image) }}" alt="Book image"

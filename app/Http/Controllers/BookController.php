@@ -171,6 +171,12 @@ class BookController extends Controller
                 {
                     Storage::putFileAs('public/books/', $request->file('file'), $image_name);
                 }
+                elseif($request->remove_image == '0')
+                {
+                    // Delete the existing image if it exists
+                        Storage::delete('public/books/' . $book->image);
+                        $book->update(['image'=> null]);
+                }
                 return redirect()->route('books.index')
                     ->with('success', 'Book Updated successfully');
             } 
